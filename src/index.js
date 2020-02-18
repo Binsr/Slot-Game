@@ -41,12 +41,13 @@ let lastTime= 0;
 function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
-
     context.clearRect(0,0,400,400);
+
     for(let i= 0; i < basicElements.length; i++)
         basicElements[i].draw(context);
 
     reel.draw(context);
+    
     requestAnimationFrame(gameLoop);
 }
 gameLoop();

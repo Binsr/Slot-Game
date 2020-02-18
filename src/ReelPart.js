@@ -4,8 +4,8 @@ export default class ReelPart{
         this.height= height/5;
 
         this.position={
-            x: null,
-            y: null,
+            x: 30,
+            y: 30,
         };
     }
     setPosX(x){
@@ -15,7 +15,7 @@ export default class ReelPart{
         this.position.y= y;
     }
     draw(context){
-        context.fillStyle= "white";
+        context.fillStyle= "red";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }

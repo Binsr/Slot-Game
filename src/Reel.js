@@ -11,7 +11,7 @@ export default class Reel{
             y: posY,
         };
         let y= this.position.y;
-        for(let i= 0; i < this.reelParts.lenght; i++){
+        for(let i= 0; i < this.reelParts.length; i++){ // < 5 radi
             this.reelParts[i].setPosX(this.position.x);
             this.reelParts[i].setPosY(y);
             y+= height/5;
@@ -20,7 +20,7 @@ export default class Reel{
     draw(context){
         context.fillStyle= this.color;
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        for(let i= 0; i < this.reelParts.lenght; i++){
+        for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].draw(this.context);
         }
     }
