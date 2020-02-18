@@ -2,9 +2,17 @@ import SpinBtn from './SpinBtn.js';
 import BetBtn from './BetBtn.js';
 import CreditBar from './CreditBar.js';
 import ReelDisplay from './ReelDisplay.js';
+import Reel from './Reel.js';
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
+
+// var circles= [];
+// for(let i= 0; i < 100; i++){
+//     circles.push(new Circle());
+// }
+
+
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 
@@ -13,22 +21,27 @@ let betBtn= new BetBtn(GAME_WIDTH,GAME_HEIGHT);
 let creditBar= new CreditBar(GAME_WIDTH,GAME_HEIGHT);
 let reelDisplay= new ReelDisplay(GAME_WIDTH,GAME_HEIGHT);
 
-let lastTime= 0;
+let basicElements= [spinBtn,betBtn,creditBar,reelDisplay];
+
+let reel= new Reel(330,60);
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         creditBar.updateCredit(betBtn.getBet());
     }else if(betBtn.clicked(event.clientX,event.clientY)){}
   });
- 
+
+let lastTime= 0;
+
 function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
+
     context.clearRect(0,0,400,400);
-    spinBtn.draw(context);
-    betBtn.draw(context);
-    creditBar.draw(context);
-    reelDisplay.draw(context);
+    for(let i= 0; i < basicElements.length; i++)
+        basicElements[i].draw(context);
+
+    reel.draw(context);
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
