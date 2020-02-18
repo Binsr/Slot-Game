@@ -1,5 +1,5 @@
 export default class BetBtn{
-    constructor(gameWidth,gameHeight){
+    constructor(gameWidth, gameHeight){
         this.width= 100;
         this.height= 30;   
         this.color= "green";

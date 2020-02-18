@@ -1,5 +1,5 @@
 export default class ReelDisplay{
-    constructor(gameWidth,gameHeight){
+    constructor(gameWidth, gameHeight){
         this.width= 700;
         this.height= 470;
 
