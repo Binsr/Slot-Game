@@ -1,16 +1,17 @@
 import SpinBtn from './SpinBtn.js';
 import BetBtn from './BetBtn.js';
 import CreditBar from './CreditBar.js';
-
+import ReelDisplay from './ReelDisplay.js';
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
 
-const GAME_WIDTH= 400,GAME_HEIGHT= 400;
+const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 
 let spinBtn= new SpinBtn(GAME_WIDTH,GAME_HEIGHT);
 let betBtn= new BetBtn(GAME_WIDTH,GAME_HEIGHT);
 let creditBar= new CreditBar(GAME_WIDTH,GAME_HEIGHT);
+let reelDisplay= new ReelDisplay(GAME_WIDTH,GAME_HEIGHT);
 
 let lastTime= 0;
 
@@ -27,7 +28,7 @@ function gameLoop(timeStamp){
     spinBtn.draw(context);
     betBtn.draw(context);
     creditBar.draw(context);
-
+    reelDisplay.draw(context);
     requestAnimationFrame(gameLoop);
 }
 gameLoop();
