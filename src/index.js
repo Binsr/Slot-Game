@@ -9,11 +9,6 @@ import Margin from './Margin.js';
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
 
-// var circles= [];
-// for(let i= 0; i < 100; i++){
-//     circles.push(new Circle());
-// }
-
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 
 let spinBtn= new SpinBtn(GAME_WIDTH,GAME_HEIGHT);
@@ -27,15 +22,19 @@ let reelParts= [];
 for(let i= 0; i < 10; i++){
     reelParts.push(new ReelPart(reelWidth,reelHeight));
 }
-let reel= new Reel(330, 60, reelWidth, reelHeight, reelParts, context);
+
+let reel= new Reel(80, 60, reelWidth, reelHeight, reelParts, context);
+
 let botMarg= new Margin(GAME_WIDTH,100,0,500);
-let topMarg= new Margin(GAME_WIDTH,70,0,0);
+let topMarg= new Margin(GAME_WIDTH,100,0,0);
 
 let graphicDisplayArray= [reelDisplay, reel, botMarg, topMarg, spinBtn, betBtn, creditBar];
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
-        creditBar.updateCredit(betBtn.getBet());
+        if(!spinBtn.isSpinning())
+            creditBar.updateCredit(betBtn.getBet());
+        spinBtn.setSpinning(true);
     }else if(betBtn.clicked(event.clientX, event.clientY)){}
 });
 
@@ -45,6 +44,10 @@ function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
     context.clearRect(0,0,400,400);
+
+    if(spinBtn.isSpinning()){
+        reel.spin();
+    }
 
     for(let i= 0; i < graphicDisplayArray.length; i++){
         graphicDisplayArray[i].draw(context);

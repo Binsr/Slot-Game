@@ -3,6 +3,7 @@ export default class SpinBtn {
         this.width= 50;
         this.height= 50;
         this.color= "red";
+        this.spinning= false;
 
         this.position= {
             x: gameWidth/2 - this.width/2,
@@ -21,5 +22,11 @@ export default class SpinBtn {
         if(d < 30){
             return true;
         }
+    }
+    setSpinning(){
+        this.spinning= !this.spinning;
+    }
+    isSpinning(){
+        return this.spinning;
     }
 }
