@@ -17,8 +17,8 @@ export default class ReelPart{
     setCollor(collor){
         this.collor= collor;
     }
-    updatePosY(){
-        this.position.y+=6;
+    updatePosY(speed){
+        this.position.y+=speed;
     }
     getPosY(){
         return this.position.y;

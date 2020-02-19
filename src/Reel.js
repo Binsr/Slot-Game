@@ -1,12 +1,13 @@
 import ReelParts from './ReelPart.js';
 export default class Reel{
-    constructor(posX, posY, width, height, reelParts, context){
+    constructor(posX, posY, width, height, reelParts,spinSpeed, context){
         this.width= width;
         this.height= height;
         this.color= "yellow";
         this.context= context;
         this.reelParts= reelParts;
         this.startPositiOfParts= [];
+        this.spinSpeed= spinSpeed+30;
 
         this.position={
             x: posX,
@@ -34,7 +35,7 @@ export default class Reel{
     spin(){
         let len= this.reelParts.length;
         for(let i= 0; i < len; i++){
-            this.reelParts[i].updatePosY();
+            this.reelParts[i].updatePosY(this.spinSpeed);
         }
         if(this.reelParts[0].getPosY() > this.position.y + this.height){
             for(let i= 0; i < len; i++){

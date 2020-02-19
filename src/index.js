@@ -18,17 +18,28 @@ let reelDisplay= new ReelDisplay(GAME_WIDTH,GAME_HEIGHT);
 
 let reelWidth= 100;
 let reelHeight= 400;
-let reelParts= [];
-for(let i= 0; i < 10; i++){
-    reelParts.push(new ReelPart(reelWidth,reelHeight));
+let reelParts= [[],[],[],[],[]];
+
+for(let i= 0; i < 5; i++){
+    for(let j= 0; j < 10; j++){
+        reelParts[i].push(new ReelPart(reelWidth,reelHeight));
+    }
 }
 
-let reel= new Reel(80, 60, reelWidth, reelHeight, reelParts, context);
+let reels= [];
+
+let rpx= 80;
+
+for(let i= 0; i < 5; i++){
+    reels.push(new Reel(rpx, 60, reelWidth, reelHeight, reelParts[i],i*3, context));
+    rpx+= reelWidth+30;
+}
+console.log(reels);
 
 let botMarg= new Margin(GAME_WIDTH,100,0,500);
 let topMarg= new Margin(GAME_WIDTH,100,0,0);
 
-let graphicDisplayArray= [reelDisplay, reel, botMarg, topMarg, spinBtn, betBtn, creditBar];
+let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar];
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
@@ -46,11 +57,18 @@ function gameLoop(timeStamp){
     context.clearRect(0,0,400,400);
 
     if(spinBtn.isSpinning()){
-        reel.spin();
+        for(let i= 0; i < 5; i++){
+            reels[i].spin();
+        }
     }
 
     for(let i= 0; i < graphicDisplayArray.length; i++){
         graphicDisplayArray[i].draw(context);
+        if(i == 0){
+            for(let j= 0; j < 5; j++){
+                reels[j].draw(context);
+            }
+        }
     }
 
     requestAnimationFrame(gameLoop);
