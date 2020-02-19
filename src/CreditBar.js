@@ -17,7 +17,11 @@ export default class CreditBar {
         context.fillText(this.credit.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
     }
     updateCredit(value){
-        this.credit+= value;
+        if(this.credit - value <= 0 || this.credit === "Game Over"){
+            this.credit= "Game Over";
+            return;
+        }
+        this.credit-= value;
     }
 
 }
