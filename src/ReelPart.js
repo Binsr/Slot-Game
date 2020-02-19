@@ -1,7 +1,7 @@
 export default class ReelPart{
     constructor(width, height){
         this.width= width;
-        this.height= height/5;
+        this.height= height/3;
         this.collor= "red";
         this.position={
             x: 30,

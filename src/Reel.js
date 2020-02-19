@@ -8,19 +8,23 @@ export default class Reel{
         this.reelParts= reelParts;
         this.startPositiOfParts= [];
         this.spinSpeed= spinSpeed+30;
+        this.spinCountdown= 100;
+        this.spinTime= 0;
+        this.startPosY= posY;
+        this.spining= false;
 
         this.position={
             x: posX,
             y: posY-this.height+40,
         };
         let y= this.position.y;
-        let collors= ["red", "yellow", "white", "blue","purple"];
-        for(let i= 0; i < this.reelParts.length; i++){ // < 5 radi
+        let collors= ["red", "blue","green"];
+        for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setPosX(this.position.x);
             this.reelParts[i].setPosY(y);
-            this.reelParts[i].setCollor(collors[i%5]);
+            this.reelParts[i].setCollor(collors[i%3]);
             this.startPositiOfParts.push(y);
-            y+= height/5;
+            y+= height/3;
         }
     }
 
@@ -31,8 +35,22 @@ export default class Reel{
             this.reelParts[i].draw(this.context);
         }
     }
+    setSpining(){
+        this.spining= true;
+    }
 
-    spin(){
+    isSpining(){
+        return this.spining;
+    }
+
+    setSpinCountdown(time){
+        this.spinCountdown= time;
+        this.spinTime= time;
+    }
+
+    spins(){
+        if(!this.spining)
+            return;
         let len= this.reelParts.length;
         for(let i= 0; i < len; i++){
             this.reelParts[i].updatePosY(this.spinSpeed);
@@ -42,5 +60,16 @@ export default class Reel{
                 this.reelParts[i].setPosY(this.startPositiOfParts[i]);
             }
         }
+    }
+
+    updateSpinCountdown(){
+        if(!this.spining)
+            return;
+        this.spinCountdown--;
+        if(this.spinCountdown == 0){
+            this.spinCountdown= this.spinTime;
+            this.spining= false;
+        }
+
     }
 }
