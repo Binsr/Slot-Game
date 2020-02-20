@@ -17,26 +17,25 @@ let creditBar= new CreditBar(GAME_WIDTH,GAME_HEIGHT);
 let reelDisplay= new ReelDisplay(GAME_WIDTH,GAME_HEIGHT);
 
 let reelWidth= 110;
-let reelHeight= 400;
+let reelHeight= 480;
 let reelParts= [[],[],[],[],[]];
 for(let i= 0; i < 5; i++){
-    for(let j= 0; j < 6; j++){
+    for(let j= 0; j < 4; j++){
         reelParts[i].push(new ReelPart(reelWidth,reelHeight));
     }
 }
 
 let reels= [];
 let rpx= 80;
-let spCd= 10;
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(rpx, 60, reelWidth, reelHeight, reelParts[i], context));
+    reels.push(new Reel(rpx, 0, reelWidth, reelHeight, reelParts[i], context));
+    reels[i].shufle();
     rpx+= reelWidth+20;
-    reels[i].setSpinCountdown(90+spCd);
-    spCd+= 15;
+    reels[i].setSpinCountdown(120);
 }
 
-let botMarg= new Margin(GAME_WIDTH,100,0,500);
-let topMarg= new Margin(GAME_WIDTH,100,0,0);
+let botMarg= new Margin(GAME_WIDTH,200,0,480);
+let topMarg= new Margin(GAME_WIDTH,120,0,0);
 
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar];
 
@@ -47,6 +46,7 @@ canvas.addEventListener('click', function(event) {
         if(!spinBtn.isSpinning()){
             spinBtn.setSpinning(true);
             for(let i= 0; i < 5; i++){
+                reels[i].shufle();
                 reels[i].setSpining();
             }
         }
@@ -57,14 +57,15 @@ function update(){
     if(spinBtn.isSpinning()){
         for(let i= 0; i < 5; i++){
             if(reels[i].isSpining()){
-                reels[i].spins(false);
+                reels[i].endingSpin();
                 reels[i].updateSpinCountdown();
             }
         }
     }
+
     let allStoped= 0;
     for(let i= 0; i < 5; i++){
-        if(!reels[i].isSpining())
+        if(!reels[i].isSpining())//Slozenost?
             allStoped++;
     }   
     spinBtn.setSpinning(allStoped != 5);

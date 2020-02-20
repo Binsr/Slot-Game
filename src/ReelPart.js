@@ -1,11 +1,11 @@
 export default class ReelPart{
     constructor(width, height){
         this.width= width;
-        this.height= Math.round(height/3);
+        this.height= Math.round(height/4);
         this.collor= "red";
         this.position={
-            x: 30,
-            y: 30,
+            x: null,
+            y: null,
         };
     }
     setPosX(x){
@@ -22,6 +22,9 @@ export default class ReelPart{
     }
     getPosY(){
         return this.position.y;
+    }
+    getCollor(){
+        return this.collor;
     }
     getHeight(){
         return this.height;
