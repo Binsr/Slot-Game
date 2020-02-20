@@ -29,10 +29,10 @@ let reels= [];
 let rpx= 80;
 let spCd= 10;
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(rpx, 60, reelWidth, reelHeight, reelParts[i],i*3, context));
+    reels.push(new Reel(rpx, 60, reelWidth, reelHeight, reelParts[i], context));
     rpx+= reelWidth+20;
-    reels[i].setSpinCountdown(100+spCd);
-    spCd+= 10;
+    reels[i].setSpinCountdown(90+spCd);
+    spCd+= 15;
 }
 
 let botMarg= new Margin(GAME_WIDTH,100,0,500);
@@ -56,11 +56,18 @@ canvas.addEventListener('click', function(event) {
 function update(){
     if(spinBtn.isSpinning()){
         for(let i= 0; i < 5; i++){
-            reels[i].spins();
-            reels[i].updateSpinCountdown();
+            if(reels[i].isSpining()){
+                reels[i].spins(false);
+                reels[i].updateSpinCountdown();
+            }
         }
     }
-    spinBtn.setSpinning(reels[4].isSpining());   
+    let allStoped= 0;
+    for(let i= 0; i < 5; i++){
+        if(!reels[i].isSpining())
+            allStoped++;
+    }   
+    spinBtn.setSpinning(allStoped != 5);
 }
 
 function draw(){
@@ -82,7 +89,6 @@ function gameLoop(timeStamp){
  
     draw();
     update();
-
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);

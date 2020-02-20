@@ -1,7 +1,7 @@
 export default class ReelPart{
     constructor(width, height){
         this.width= width;
-        this.height= height/3;
+        this.height= Math.round(height/3);
         this.collor= "red";
         this.position={
             x: 30,
@@ -22,6 +22,9 @@ export default class ReelPart{
     }
     getPosY(){
         return this.position.y;
+    }
+    getHeight(){
+        return this.height;
     }
     draw(context){
         context.fillStyle= this.collor;

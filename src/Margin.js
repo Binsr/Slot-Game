@@ -8,6 +8,9 @@ export default class Margin{
             y: posY,
         };
     }
+    getBotEdgePos(){
+        return this.height + this.position.y;
+    }
     draw(context){
         context.fillStyle= "yellow";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
