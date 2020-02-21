@@ -6,7 +6,7 @@ export default class LinesBtn{
         this.linesNumb=1;
         this.color= "White";
         this.lines= lines;
-        this.timeForC= 100;
+        this.timeForC= 90;
         this.counter= this.timeForC;
         this.showLines= true;
 

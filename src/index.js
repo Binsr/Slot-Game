@@ -121,7 +121,6 @@ let lastTime= 0;
 function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
- 
     draw();
     update();
     requestAnimationFrame(gameLoop);
