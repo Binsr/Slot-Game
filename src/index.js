@@ -6,6 +6,7 @@ import Reel from './Reel.js';
 import ReelPart from './ReelPart.js';
 import Margin from './Margin.js';
 import Line from './Line.js';
+import LinesBtn from './LinesBtn.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
@@ -37,26 +38,19 @@ for(let i= 0; i < 5; i++){
     reelPositionsX+= REEL_WIDTH+20;
 }
 
-//------------------------------------------------------------------- Samo za Test ----------------------
-// let points=[[80,180],[710,180]];
-// let line1 = new Line();
-// line1.setPoints(points);
-// line1.setShowLine(true);
-// line1.turnLineOn();
-
 let straithLines=[];
 let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
 for(let i= 1; i < 4; i++){
     straithLines.push(new Line());
     straithLines[i-1].setPoints([[LEFT_EDGE,lineYStart],[RIGHT_EDGE,lineYStart]]);
     lineYStart+= ((REEL_HEIGHT)/4);
-    straithLines[i-1].setShowLine(true);
 }
-console.log(straithLines);
-//---------------------------------------------------------------------------------------------------------
 
+let allLines=[];
+allLines.push(straithLines);
 
-let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar];
+let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines);
+let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
@@ -69,7 +63,9 @@ canvas.addEventListener('click', function(event) {
                 reels[i].setSpining();
             }
         }
-    }else if(betBtn.clicked(event.clientX, event.clientY)){}
+    }else if(betBtn.clicked(event.clientX, event.clientY)){
+
+    }else if(linesBtn.clicked(event.clientX,event.clientY)){}
 });
 
 let numbOfActiveReels= 0; //zbog slozenosti ove f-je je globalna

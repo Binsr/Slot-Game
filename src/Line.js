@@ -2,16 +2,16 @@ export default class Line{
 
     constructor(){
         this.points= [];
-        this.isLineOn= true;
-        this.showLine= true;
+        this.isLineOn= false;
+        this.showLine= false;
     }
     setPoints(points){
         this.points= points;
     }
 
     draw(context){
-        // if(!this.isLineOn && !this.isShowing)
-        //     return;
+        if(!this.isLineOn && !this.isShowing)
+            return;
         // console.log("Usao u draw");
         context.beginPath();
         context.strokeStyle= "white";
@@ -23,8 +23,8 @@ export default class Line{
         context.stroke(); 
     }
 
-    turnLineOn(){
-        this.isLineOn= !this.isLineOn;
+    setLineOn(x){
+        this.isLineOn= x;
     }
 
     getLineActive(){
