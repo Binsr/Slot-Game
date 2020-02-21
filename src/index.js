@@ -30,9 +30,8 @@ for(let i= 0; i < 5; i++){
 let reels= [];
 let reelPositions= 80;
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(reelPositions, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], context));
+    reels.push(new Reel(reelPositions, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], context,82+5*i*8));
     reelPositions+= REEL_WIDTH+20;
-    reels[i].setSpinCountdown(120);
 }
 
 

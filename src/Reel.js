@@ -1,16 +1,18 @@
 import ReelParts from './ReelPart.js';
 export default class Reel{
-    constructor(posX, posY, width, height, reelParts, context){
+    constructor(posX, posY, width, height, reelParts, context,spinTime){
         this.width= width;
         this.height= height;
         this.context= context;
-        this.reelParts= reelParts;
-        this.spinSpeed= 40;
-        this.spinCountdown= null;
-        this.spinTime= null;
+        this.reelParts= reelParts;         // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
+                                           //|---------------------------------------------------------------------------------------------------|
+        this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
+        this.oneSpinLen= 2;                //|                                                                                                   |
+        this.spinTime= spinTime;                //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
+        this.spinCountdown= this.spinTime; //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
+                                           //|---------------------------------------------------------------------------------------------------|
         this.indexOfSwitcReelPart= 3;
-
-        this.counter= 0;
+        this.iterator= 0;
 
         this.position={
             x: posX,
@@ -41,11 +43,6 @@ export default class Reel{
         return this.spining;
     }
 
-    setSpinCountdown(time){
-        this.spinCountdown= time;
-        this.spinTime= time;
-    }
-
     getPosReelPart(){
         return this.reelParts[5].getPosY();
     }
@@ -67,14 +64,14 @@ export default class Reel{
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].updatePosY(this.spinSpeed);
         }
-        this.counter++;
-        if(this.counter == 3){
+        this.iterator++;
+        if(this.iterator == this.oneSpinLen){//Sa spin speed pravimo kombinaciju koja daj 120 pr: 2 60, 4 30, 5 24 
             this.reelParts[this.indexOfSwitcReelPart].setPosY(this.position.y);
             this.indexOfSwitcReelPart= (this.indexOfSwitcReelPart-1);
             if(this.indexOfSwitcReelPart < 0)
                 this.indexOfSwitcReelPart= 3;
             this.reelParts[(this.indexOfSwitcReelPart+1)%4].setCollor(this.reelParts[this.indexOfSwitcReelPart].getCollor());
-            this.counter= 0;
+            this.iterator= 0;
         }
     }
 
@@ -82,8 +79,15 @@ export default class Reel{
         if(!this.spining)
             return;
         this.spinCountdown--;
+        if(this.spinCountdown == 30){
+            this.spinSpeed= 8;
+            this.oneSpinLen= 15;
+
+        }
         if(this.spinCountdown == 0){
             this.spinCountdown= this.spinTime;
+            this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
+            this.oneSpinLen= 2;  
             this.spining= false;
         }
 
