@@ -7,6 +7,7 @@ import ReelPart from './ReelPart.js';
 import Margin from './Margin.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
+const REEL_WIDTH= 110,REEL_HEIGHT= 480;
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -15,36 +16,34 @@ let spinBtn= new SpinBtn(GAME_WIDTH,GAME_HEIGHT);
 let betBtn= new BetBtn(GAME_WIDTH,GAME_HEIGHT);
 let creditBar= new CreditBar(GAME_WIDTH,GAME_HEIGHT);
 let reelDisplay= new ReelDisplay(GAME_WIDTH,GAME_HEIGHT);
+let botMarg= new Margin(GAME_WIDTH,200,0,480);
+let topMarg= new Margin(GAME_WIDTH,120,0,0);
 
-let reelWidth= 110;
-let reelHeight= 480;
 let reelParts= [[],[],[],[],[]];
+
 for(let i= 0; i < 5; i++){
     for(let j= 0; j < 4; j++){
-        reelParts[i].push(new ReelPart(reelWidth,reelHeight));
+        reelParts[i].push(new ReelPart(REEL_WIDTH,REEL_HEIGHT));
     }
 }
 
 let reels= [];
-let rpx= 80;
+let reelPositions= 80;
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(rpx, 0, reelWidth, reelHeight, reelParts[i], context));
-    reels[i].shufle();
-    rpx+= reelWidth+20;
+    reels.push(new Reel(reelPositions, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], context));
+    reelPositions+= REEL_WIDTH+20;
     reels[i].setSpinCountdown(120);
 }
 
-let botMarg= new Margin(GAME_WIDTH,200,0,480);
-let topMarg= new Margin(GAME_WIDTH,120,0,0);
 
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar];
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
-        if(!spinBtn.isSpinning())
+        if(!spinBtn.isActive())
             creditBar.updateCredit(betBtn.getBet());
-        if(!spinBtn.isSpinning()){
-            spinBtn.setSpinning(true);
+        if(!spinBtn.isActive()){
+            spinBtn.switchOn(true);
             for(let i= 0; i < 5; i++){
                 reels[i].shufle();
                 reels[i].setSpining();
@@ -54,7 +53,7 @@ canvas.addEventListener('click', function(event) {
 });
 
 function update(){
-    if(spinBtn.isSpinning()){
+    if(spinBtn.isActive()){
         for(let i= 0; i < 5; i++){
             if(reels[i].isSpining()){
                 reels[i].endingSpin();
@@ -68,7 +67,7 @@ function update(){
         if(!reels[i].isSpining())//Slozenost?
             allStoped++;
     }   
-    spinBtn.setSpinning(allStoped != 5);
+    spinBtn.switchOn(allStoped != 5);
 }
 
 function draw(){

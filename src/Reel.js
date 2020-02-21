@@ -5,7 +5,7 @@ export default class Reel{
         this.height= height;
         this.context= context;
         this.reelParts= reelParts;
-        this.spinSpeed= 4;
+        this.spinSpeed= 40;
         this.spinCountdown= null;
         this.spinTime= null;
         this.indexOfSwitcReelPart= 3;
@@ -18,9 +18,11 @@ export default class Reel{
         };
         let y= this.position.y;
 
+        let collors= ["red","blue","green","red"];
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setPosX(this.position.x);
             this.reelParts[i].setPosY(y);
+            this.reelParts[i].setCollor(collors[i]);
             y+= Math.round(height/4);
         }
     }
@@ -66,7 +68,7 @@ export default class Reel{
             this.reelParts[i].updatePosY(this.spinSpeed);
         }
         this.counter++;
-        if(this.counter == 30){
+        if(this.counter == 3){
             this.reelParts[this.indexOfSwitcReelPart].setPosY(this.position.y);
             this.indexOfSwitcReelPart= (this.indexOfSwitcReelPart-1);
             if(this.indexOfSwitcReelPart < 0)

@@ -23,10 +23,10 @@ export default class SpinBtn {
             return true;
         }
     }
-    setSpinning(s){
+    switchOn(s){
         this.spinning= s;
     }
-    isSpinning(){
+    isActive(){
         return this.spinning;
     }
 
