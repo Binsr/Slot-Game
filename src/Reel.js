@@ -1,6 +1,6 @@
 import ReelParts from './ReelPart.js';
 export default class Reel{
-    constructor(posX, posY, width, height, reelParts, context,spinTime){
+    constructor(posX, posY, width, height, reelParts,spinTime, context){
         this.width= width;
         this.height= height;
         this.context= context;
@@ -8,11 +8,11 @@ export default class Reel{
                                            //|---------------------------------------------------------------------------------------------------|
         this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
         this.oneSpinLen= 2;                //|                                                                                                   |
-        this.spinTime= spinTime;                //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
+        this.spinTime= spinTime;           //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
         this.spinCountdown= this.spinTime; //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
                                            //|---------------------------------------------------------------------------------------------------|
         this.indexOfSwitcReelPart= 3;
-        this.iterator= 0;
+        this.iterator= 0; //Vodi racuna o trenutku kada treba rotirati parce reel-a(kada je oneSpinLen*spinSpeed == visinom parceta)
 
         this.position={
             x: posX,
@@ -51,9 +51,12 @@ export default class Reel{
         return this.spinCountdown;
     }
     shufle(){
-        let collorComb= [["red","blue","green","red"],["green","red","blue","green"],["blue","green","red","blue"]];
-        let randNumForCollor= Math.floor(Math.random() * Math.floor(3))%3;
-        let collors= collorComb[randNumForCollor];
+        let collorComb= [["red","blue","green","red"],
+                        ["green","red","blue","green"],
+                        ["blue","green","red","blue"]];
+
+        let randCollorPick= Math.floor(Math.random() * Math.floor(3))%3;
+        let collors= collorComb[randCollorPick];
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setCollor(collors[i]);
         }
@@ -65,7 +68,7 @@ export default class Reel{
             this.reelParts[i].updatePosY(this.spinSpeed);
         }
         this.iterator++;
-        if(this.iterator == this.oneSpinLen){//Sa spin speed pravimo kombinaciju koja daj 120 pr: 2 60, 4 30, 5 24 
+        if(this.iterator == this.oneSpinLen){
             this.reelParts[this.indexOfSwitcReelPart].setPosY(this.position.y);
             this.indexOfSwitcReelPart= (this.indexOfSwitcReelPart-1);
             if(this.indexOfSwitcReelPart < 0)

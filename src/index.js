@@ -5,9 +5,11 @@ import ReelDisplay from './ReelDisplay.js';
 import Reel from './Reel.js';
 import ReelPart from './ReelPart.js';
 import Margin from './Margin.js';
+import Line from './Line.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
+const LEFT_EDGE= 80,RIGHT_EDGE= 5*REEL_WIDTH+160;
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -28,11 +30,30 @@ for(let i= 0; i < 5; i++){
 }
 
 let reels= [];
-let reelPositions= 80;
+let reelPositionsX= LEFT_EDGE;
+
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(reelPositions, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], context,82+5*i*8));
-    reelPositions+= REEL_WIDTH+20;
+    reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], 82+5*i*8, context));
+    reelPositionsX+= REEL_WIDTH+20;
 }
+
+//------------------------------------------------------------------- Samo za Test ----------------------
+// let points=[[80,180],[710,180]];
+// let line1 = new Line();
+// line1.setPoints(points);
+// line1.setShowLine(true);
+// line1.turnLineOn();
+
+let straithLines=[];
+let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
+for(let i= 1; i < 4; i++){
+    straithLines.push(new Line());
+    straithLines[i-1].setPoints([[LEFT_EDGE,lineYStart],[RIGHT_EDGE,lineYStart]]);
+    lineYStart+= ((REEL_HEIGHT)/4);
+    straithLines[i-1].setShowLine(true);
+}
+console.log(straithLines);
+//---------------------------------------------------------------------------------------------------------
 
 
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar];
@@ -51,6 +72,7 @@ canvas.addEventListener('click', function(event) {
     }else if(betBtn.clicked(event.clientX, event.clientY)){}
 });
 
+let numbOfActiveReels= 0; //zbog slozenosti ove f-je je globalna
 function update(){
     if(spinBtn.isActive()){
         for(let i= 0; i < 5; i++){
@@ -60,13 +82,14 @@ function update(){
             }
         }
     }
-
-    let allStoped= 0;
-    for(let i= 0; i < 5; i++){
-        if(!reels[i].isSpining())//Slozenost?
-            allStoped++;
-    }   
-    spinBtn.switchOn(allStoped != 5);
+    for(let i= numbOfActiveReels; i < 5; i++){
+        if(!reels[i].isSpining())
+            numbOfActiveReels++;
+    }
+    if(numbOfActiveReels == 5){   
+        spinBtn.switchOn(false);
+        numbOfActiveReels= 0;
+    }
 }
 
 function draw(){
@@ -76,6 +99,11 @@ function draw(){
         if(i == 0){
             for(let j= 0; j < 5; j++){
                 reels[j].draw(context);
+            }
+        }
+        if(i == graphicDisplayArray.length-1){
+            for(let j= 0; j < straithLines.length; j++){
+                straithLines[j].draw(context);
             }
         }
     }

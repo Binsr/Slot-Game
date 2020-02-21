@@ -13,6 +13,7 @@ export default class SpinBtn {
     draw(context){
         context.fillStyle= this.color;
         //context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.beginPath()
         context.arc(this.position.x, this.position.y, 30, 0, Math.PI*2, false);
         context.stroke();
         context.fill();
