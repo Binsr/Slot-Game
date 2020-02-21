@@ -3,9 +3,12 @@ export default class LinesBtn{
     constructor(gameWidth,gameHeight,lines){
         this.width= 100;
         this.height= 30;   
-        this.linesNumb=0;
+        this.linesNumb=1;
         this.color= "White";
         this.lines= lines;
+        this.timeForC= 100;
+        this.counter= this.timeForC;
+        this.showLines= true;
 
         this.position= {
             x: gameWidth - this.width-200,
@@ -29,16 +32,39 @@ export default class LinesBtn{
         var d2= Math.sqrt(Math.pow(mouseX+40-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));
         if(d1 < 30){
             if(this.linesNumb == 3)
-                return;
+                return true;
             this.lines[0][this.linesNumb].setLineOn(true);
             this.lines[0][this.linesNumb].setShowLine(true);
-                this.linesNumb++;
+            this.linesNumb++;
+            return true;
         }else if(d2 < 20){
-            if(this.linesNumb == 0)
-                return;
+            if(this.linesNumb == 1)
+                return true;
             this.lines[0][this.linesNumb-1].setLineOn(false);
             this.lines[0][this.linesNumb-1].setShowLine(false);
             this.linesNumb--;
+            return true;
         }
+    }
+    refreshCounter(){
+        this.counter= this.timeForC;
+        this.showLines= true;
+    }
+
+    updateCounter(){
+        if(this.counter == 0){
+            this.showLines= false;
+            return;
+        }
+        this.counter--;
+    }
+
+    setCounter(time){
+        this.counter= time;
+        this.showLines= false;
+    }
+
+    getShowStatus(){
+        return this.showLines;
     }
 }

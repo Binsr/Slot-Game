@@ -45,18 +45,21 @@ for(let i= 1; i < 4; i++){
     straithLines[i-1].setPoints([[LEFT_EDGE,lineYStart],[RIGHT_EDGE,lineYStart]]);
     lineYStart+= ((REEL_HEIGHT)/4);
 }
+let tmp= straithLines[1];
+straithLines[1] = straithLines[0];
+straithLines[0] = tmp;
+straithLines[0].setLineOn(true);
 
 let allLines=[];
 allLines.push(straithLines);
-
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
-        if(!spinBtn.isActive())
-            creditBar.updateCredit(betBtn.getBet());
         if(!spinBtn.isActive()){
+            creditBar.updateCredit(betBtn.getBet());
+            linesBtn.setCounter(0);
             spinBtn.switchOn(true);
             for(let i= 0; i < 5; i++){
                 reels[i].shufle();
@@ -65,7 +68,11 @@ canvas.addEventListener('click', function(event) {
         }
     }else if(betBtn.clicked(event.clientX, event.clientY)){
 
-    }else if(linesBtn.clicked(event.clientX,event.clientY)){}
+    }else if(!spinBtn.isActive()){
+        if(linesBtn.clicked(event.clientX,event.clientY)){
+            linesBtn.refreshCounter();
+        }
+    }
 });
 
 let numbOfActiveReels= 0; //zbog slozenosti ove f-je je globalna
@@ -86,6 +93,7 @@ function update(){
         spinBtn.switchOn(false);
         numbOfActiveReels= 0;
     }
+    linesBtn.updateCounter();
 }
 
 function draw(){
@@ -99,7 +107,11 @@ function draw(){
         }
         if(i == graphicDisplayArray.length-1){
             for(let j= 0; j < straithLines.length; j++){
-                straithLines[j].draw(context);
+                if(linesBtn.getShowStatus()){
+                    straithLines[j].draw(context);
+                }else{
+                    straithLines[j].drawLineSign(context);
+                }
             }
         }
     }
