@@ -11,6 +11,7 @@ import LinesBtn from './LinesBtn.js';
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
 const LEFT_EDGE= 80,RIGHT_EDGE= 5*REEL_WIDTH+160;
+const LINES_RECT= 20;
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -41,7 +42,7 @@ for(let i= 0; i < 5; i++){
 let straithLines=[];
 let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
 for(let i= 1; i < 4; i++){
-    straithLines.push(new Line());
+    straithLines.push(new Line(LINES_RECT));
     straithLines[i-1].setPoints([[LEFT_EDGE,lineYStart],[RIGHT_EDGE,lineYStart]]);
     lineYStart+= ((REEL_HEIGHT)/4);
 }
@@ -50,8 +51,23 @@ straithLines[1] = straithLines[0];
 straithLines[0] = tmp;
 straithLines[0].setLineOn(true);
 
+let vLines= [];
+vLines.push(new Line(LINES_RECT));//da li da se salje argument line points pa da pravim niz pre toga koj prosledjujem ili da imam f ju set ???
+vLines[0].setPoints([[LEFT_EDGE,REEL_HEIGHT/4+LINES_RECT],
+                    [LEFT_EDGE+10,REEL_HEIGHT/4+LINES_RECT],
+                    [(LEFT_EDGE+(REEL_WIDTH/2)*5)+2*20,(REEL_HEIGHT/8)*7],
+                    [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT/4+LINES_RECT]                                                        
+]);
+vLines.push(new Line(LINES_RECT));
+vLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT-LINES_RECT],
+                    [LEFT_EDGE+10,REEL_HEIGHT-LINES_RECT],
+                    [LEFT_EDGE+(REEL_WIDTH*5)/2+40,(REEL_HEIGHT/8)*3],
+                    [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT-LINES_RECT]
+
+]);
 let allLines=[];
 allLines.push(straithLines);
+allLines.push(vLines);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
@@ -75,7 +91,7 @@ canvas.addEventListener('click', function(event) {
     }
 });
 
-let numbOfActiveReels= 0; //zbog slozenosti ove f-je je globalna
+let numbOfActiveReels= 0; //zbog slozenosti ove f-je promenjiva je globalna
 function update(){
     if(spinBtn.isActive()){
         for(let i= 0; i < 5; i++){
@@ -95,8 +111,22 @@ function update(){
     }
     linesBtn.updateCounter();
 }
+allLines[1][0].setLineOn(true);//TEEEESSSST
+allLines[1][0].setShowLine(true);
 
-function draw(){
+function drawLines(){
+    for(let i= 0; i < allLines.length; i++)
+        for(let j= 0; j < allLines[i].length; j++){
+            if(linesBtn.getShowStatus()){
+                allLines[i][j].draw(context);
+            }else{
+                allLines[i][j].drawLineSign(context);
+            }
+    }
+}
+
+
+function graphic(){
     context.clearRect(0,0,400,400);
     for(let i= 0; i < graphicDisplayArray.length; i++){
         graphicDisplayArray[i].draw(context);
@@ -105,23 +135,15 @@ function draw(){
                 reels[j].draw(context);
             }
         }
-        if(i == graphicDisplayArray.length-1){
-            for(let j= 0; j < straithLines.length; j++){
-                if(linesBtn.getShowStatus()){
-                    straithLines[j].draw(context);
-                }else{
-                    straithLines[j].drawLineSign(context);
-                }
-            }
-        }
     }
+    drawLines();
 }
 
 let lastTime= 0;
 function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
-    draw();
+    graphic();
     update();
     requestAnimationFrame(gameLoop);
 }
