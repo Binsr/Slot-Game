@@ -12,6 +12,7 @@ const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
 const LEFT_EDGE= 80,RIGHT_EDGE= 5*REEL_WIDTH+160;
 const LINES_RECT= 20;
+const NUMBER_OF_LINES= 5;
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -68,7 +69,7 @@ vLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT-LINES_RECT],
 let allLines=[];
 allLines.push(straithLines);
 allLines.push(vLines);
-let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines);
+let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
 canvas.addEventListener('click', function(event) {
@@ -111,8 +112,7 @@ function update(){
     }
     linesBtn.updateCounter();
 }
-allLines[1][0].setLineOn(true);//TEEEESSSST
-allLines[1][0].setShowLine(true);
+
 
 function drawLines(){
     for(let i= 0; i < allLines.length; i++)

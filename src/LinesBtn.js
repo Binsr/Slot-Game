@@ -1,14 +1,19 @@
 export default class LinesBtn{
 
-    constructor(gameWidth,gameHeight,lines){
+    constructor(gameWidth,gameHeight,lines,numbOfLines){
         this.width= 100;
         this.height= 30;   
-        this.linesNumb=1;
         this.color= "White";
         this.lines= lines;
         this.timeForC= 90;
         this.counter= this.timeForC;
         this.showLines= true;
+        this.numbOfLines= numbOfLines;
+
+        this.iteratorX= 0;
+        this.iteratorY= 1;
+        this.linesActive= 1;
+
 
         this.position= {
             x: gameWidth - this.width-200,
@@ -25,26 +30,62 @@ export default class LinesBtn{
         context.fillStyle= "black";
         context.fillRect(this.position.x+this.width*2/3, this.position.y, this.width/3, this.height);
         context.fillStyle= "black";
-        context.fillText(this.linesNumb.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
+        context.fillText(this.linesActive.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
     }
     clicked(mouseX,mouseY){
         var d1= Math.sqrt(Math.pow(mouseX-70-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));//Udaljenost dve tacke
         var d2= Math.sqrt(Math.pow(mouseX+40-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));
+
         if(d1 < 30){
-            if(this.linesNumb == 3)
+            if(this.linesActive == this.numbOfLines)
                 return true;
-            this.lines[0][this.linesNumb].setLineOn(true);
-            this.lines[0][this.linesNumb].setShowLine(true);
-            this.linesNumb++;
-            return true;
-        }else if(d2 < 20){
-            if(this.linesNumb == 1)
-                return true;
-            this.lines[0][this.linesNumb-1].setLineOn(false);
-            this.lines[0][this.linesNumb-1].setShowLine(false);
-            this.linesNumb--;
+            this.lines[this.iteratorX][this.iteratorY].setLineOn(true);
+            this.lines[this.iteratorX][this.iteratorY].setShowLine(true);
+            if(this.iteratorY == this.lines[this.iteratorX].length-1){
+                this.iteratorX++;
+                this.iteratorY= 0;
+            }else{
+                this.iteratorY++;
+            }
+            this.linesActive++;
             return true;
         }
+
+        if(d2 < 20){
+            if(this.linesActive == 1)
+                return true;
+            if(this.iteratorY == 0){
+                this.iteratorX--;
+                this.iteratorY = this.lines[this.iteratorX].length-1;
+            }else{
+                this.iteratorY--;
+            }
+            this.lines[this.iteratorX][this.iteratorY].setLineOn(false);
+            this.lines[this.iteratorX][this.iteratorY].setShowLine(false);
+            this.linesActive--;
+            return true;
+                
+        }
+
+
+
+
+
+        // if(d1 < 30){
+        //     if(this.linesNumb == 3)
+        //         return true;
+        //     this.lines[0][this.linesNumb].setLineOn(true);
+        //     this.lines[0][this.linesNumb].setShowLine(true);
+        //     this.linesNumb++;
+        //     return true;
+        // }else if(d2 < 20){
+        //     if(this.linesNumb == 1)
+        //         return true;
+        //     this.lines[0][this.linesNumb-1].setLineOn(false);
+        //     this.lines[0][this.linesNumb-1].setShowLine(false);
+        //     this.linesNumb--;
+        //     return true;
+        // }
     }
     refreshCounter(){
         this.counter= this.timeForC;
