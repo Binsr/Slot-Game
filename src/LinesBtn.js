@@ -63,29 +63,8 @@ export default class LinesBtn{
             this.lines[this.iteratorX][this.iteratorY].setLineOn(false);
             this.lines[this.iteratorX][this.iteratorY].setShowLine(false);
             this.linesActive--;
-            return true;
-                
+            return true;    
         }
-
-
-
-
-
-        // if(d1 < 30){
-        //     if(this.linesNumb == 3)
-        //         return true;
-        //     this.lines[0][this.linesNumb].setLineOn(true);
-        //     this.lines[0][this.linesNumb].setShowLine(true);
-        //     this.linesNumb++;
-        //     return true;
-        // }else if(d2 < 20){
-        //     if(this.linesNumb == 1)
-        //         return true;
-        //     this.lines[0][this.linesNumb-1].setLineOn(false);
-        //     this.lines[0][this.linesNumb-1].setShowLine(false);
-        //     this.linesNumb--;
-        //     return true;
-        // }
     }
     refreshCounter(){
         this.counter= this.timeForC;

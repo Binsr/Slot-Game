@@ -20,7 +20,6 @@ export default class Line{
         for(let i= 1; i < this.points.length; i++){
             context.lineTo(this.points[i][0], this.points[i][1]);
         }
-        // context.closePath();
         context.stroke();
         context.fillStyle= "white";
         context.fillRect(this.points[0][0]-(this.linesRect+5), this.points[0][1]-10, this.linesRect, this.linesRect); 
