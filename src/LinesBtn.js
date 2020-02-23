@@ -66,6 +66,7 @@ export default class LinesBtn{
             return true;    
         }
     }
+    
     refreshCounter(){
         this.counter= this.timeForC;
         this.showLines= true;

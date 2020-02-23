@@ -1,9 +1,10 @@
 import ReelParts from './ReelPart.js';
+import Calculations from './Calculations.js';
+
 export default class Reel{
-    constructor(posX, posY, width, height, reelParts,spinTime, context){
+    constructor(posX, posY, width, height, reelParts,spinTime){ //Pozovi za speen time calculations
         this.width= width;
         this.height= height;
-        this.context= context;
         this.reelParts= reelParts;         // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
                                            //|---------------------------------------------------------------------------------------------------|
         this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
@@ -29,12 +30,6 @@ export default class Reel{
         }
     }
 
-    draw(context){
-        for(let i= 0; i < this.reelParts.length; i++){
-            this.reelParts[i].draw(this.context);
-        }
-    }
-
     setSpining(){
         this.spining= true;
     }
@@ -50,6 +45,13 @@ export default class Reel{
     getSpinCountdown(){
         return this.spinCountdown;
     }
+
+    draw(context){
+        for(let i= 0; i < this.reelParts.length; i++){
+            this.reelParts[i].draw(context);
+        }
+    }
+
     shufle(){
         let collorComb= [["red","blue","green","red"],
                         ["green","red","blue","green"],

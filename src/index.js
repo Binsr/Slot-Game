@@ -7,6 +7,7 @@ import ReelPart from './ReelPart.js';
 import Margin from './Margin.js';
 import Line from './Line.js';
 import LinesBtn from './LinesBtn.js';
+import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
@@ -36,71 +37,10 @@ let reels= [];
 let reelPositionsX= LEFT_EDGE;
 
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], 82+5*i*8, context));
+    reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], 82+5*i*8));
     reelPositionsX+= REEL_WIDTH+20;
 }
-
-let straithLines=[];
-let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
-for(let i= 1; i < 4; i++){
-    straithLines.push(new Line(LINES_RECT));
-    straithLines[i-1].setPoints([[LEFT_EDGE,lineYStart],[RIGHT_EDGE,lineYStart]]);
-    lineYStart+= ((REEL_HEIGHT)/4);
-}
-let tmp= straithLines[1];
-straithLines[1] = straithLines[0];
-straithLines[0] = tmp;
-straithLines[0].setLineOn(true);
-
-let vLines= [];
-vLines.push(new Line(LINES_RECT));//da li da se salje argument line points pa da pravim niz pre toga koj prosledjujem ili da imam f ju set ???
-vLines[0].setPoints([[LEFT_EDGE,REEL_HEIGHT/4+LINES_RECT],
-                    [LEFT_EDGE+10,REEL_HEIGHT/4+LINES_RECT],
-                    [(LEFT_EDGE+(REEL_WIDTH/2)*5)+2*20,(REEL_HEIGHT/8)*7-LINES_RECT],
-                    [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT/4+LINES_RECT]                                                        
-]);
-vLines.push(new Line(LINES_RECT));
-vLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT-LINES_RECT],
-                    [LEFT_EDGE+10,REEL_HEIGHT-LINES_RECT],
-                    [LEFT_EDGE+(REEL_WIDTH*5)/2+40,(REEL_HEIGHT/8)*3+LINES_RECT],
-                    [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT-LINES_RECT]
-]);
-
-let longVLines= [];
-longVLines.push(new Line(LINES_RECT));
-longVLines[0].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*2+LINES_RECT],
-                        [LEFT_EDGE+10,(REEL_HEIGHT/4)*2+LINES_RECT],
-                        [LEFT_EDGE+(REEL_WIDTH/2)*3+20+LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
-                        [LEFT_EDGE+60+(REEL_WIDTH/2)*7-LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
-                        [LEFT_EDGE+80+REEL_WIDTH*5,(REEL_HEIGHT/4)*2+LINES_RECT]
-]);
-longVLines.push(new Line(LINES_RECT));
-longVLines[1].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*3-LINES_RECT],
-                        [LEFT_EDGE+10,(REEL_HEIGHT/4)*3-LINES_RECT],
-                        [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+20,(REEL_HEIGHT/8)*3-LINES_RECT],
-                        [LEFT_EDGE+(REEL_WIDTH/2)*7-LINES_RECT+60,(REEL_HEIGHT/8)*3-LINES_RECT],
-                        [LEFT_EDGE+5*REEL_WIDTH+80,(REEL_HEIGHT/4)*3-LINES_RECT]
-]);
-
-let zLines= [];
-zLines.push(new Line(LINES_RECT));
-zLines[0].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*3+LINES_RECT],
-                    [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+20,(REEL_HEIGHT/4)*3+LINES_RECT],
-                    [LEFT_EDGE+(REEL_WIDTH/2)*7+60-LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
-                    [LEFT_EDGE+5*REEL_WIDTH+80,REEL_HEIGHT/2-LINES_RECT]
-]);
-zLines.push(new Line(LINES_RECT));
-zLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT/2-LINES_RECT],
-                    [LEFT_EDGE+(REEL_WIDTH/2)*3+20+LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
-                    [LEFT_EDGE+(REEL_WIDTH/2)*7+60-LINES_RECT,(REEL_HEIGHT/4)*3+LINES_RECT],
-                    [LEFT_EDGE+REEL_WIDTH*5+80,(REEL_HEIGHT/4)*3+LINES_RECT]
-]);
-
-let allLines=[];
-allLines.push(straithLines);
-allLines.push(vLines);
-allLines.push(longVLines);
-allLines.push(zLines);
+let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
@@ -175,8 +115,8 @@ let lastTime= 0;
 function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
-    graphic();
     update();
+    graphic();
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
