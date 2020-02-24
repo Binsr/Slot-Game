@@ -2,16 +2,16 @@ import ReelParts from './ReelPart.js';
 import Calculations from './Calculations.js';
 
 export default class Reel{
-    constructor(posX, posY, width, height, reelParts,spinTime){ //Pozovi za speen time calculations
+    constructor(posX, posY, width, height, reelNumber, reelParts){ //Pozovi za speen time calculations
         this.width= width;
         this.height= height;
-        this.reelParts= reelParts;         // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
-                                           //|---------------------------------------------------------------------------------------------------|
-        this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
-        this.oneSpinLen= 2;                //|                                                                                                   |
-        this.spinTime= spinTime;           //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
-        this.spinCountdown= this.spinTime; //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
-                                           //|---------------------------------------------------------------------------------------------------|
+        this.reelParts= reelParts;                                   // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
+                                                                    //|---------------------------------------------------------------------------------------------------|
+        this.spinSpeed= 60;                                         //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
+        this.oneSpinLen= 2;                                         //|                                                                                                   |
+        this.spinTime= Calculations.calcSpinTime(reelNumber);       //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
+        this.spinCountdown= this.spinTime;                          //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
+                                                                    //|---------------------------------------------------------------------------------------------------|
         this.indexOfSwitcReelPart= 3;
         this.iterator= 0; //Vodi racuna o trenutku kada treba rotirati parce reel-a(kada je oneSpinLen*spinSpeed == visinom parceta)
 
@@ -30,12 +30,10 @@ export default class Reel{
         }
     }
 
-    setSpining(){
-        this.spining= true;
-    }
-
-    isSpining(){
-        return this.spining;
+    draw(context){
+        for(let i= 0; i < this.reelParts.length; i++){
+            this.reelParts[i].draw(context);
+        }
     }
 
     getPosReelPart(){
@@ -46,10 +44,12 @@ export default class Reel{
         return this.spinCountdown;
     }
 
-    draw(context){
-        for(let i= 0; i < this.reelParts.length; i++){
-            this.reelParts[i].draw(context);
-        }
+    isSpining(){
+        return this.spining;
+    }
+
+    setSpining(){
+        this.spining= true;
     }
 
     shufle(){
@@ -62,7 +62,7 @@ export default class Reel{
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setCollor(collors[i]);
         }
-
+        return collorComb[randCollorPick];
     }
 
     endingSpin(){

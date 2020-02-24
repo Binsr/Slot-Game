@@ -8,6 +8,7 @@ import Margin from './Margin.js';
 import Line from './Line.js';
 import LinesBtn from './LinesBtn.js';
 import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
+import Calculations from './Calculations.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
@@ -37,12 +38,15 @@ let reels= [];
 let reelPositionsX= LEFT_EDGE;
 
 for(let i= 0; i < 5; i++){
-    reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, reelParts[i], 82+5*i*8));
+    reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, i, reelParts[i]));
     reelPositionsX+= REEL_WIDTH+20;
 }
 let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
+
+let oneRoundSimbolCombination= [];
+let oneRoundWin;
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
@@ -51,9 +55,10 @@ canvas.addEventListener('click', function(event) {
             linesBtn.setCounter(0);
             spinBtn.switchOn(true);
             for(let i= 0; i < 5; i++){
-                reels[i].shufle();
+                oneRoundSimbolCombination.push(reels[i].shufle());
                 reels[i].setSpining();
             }
+            oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination);
         }
     }else if(betBtn.clicked(event.clientX, event.clientY)){
 

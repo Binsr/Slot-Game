@@ -6,16 +6,13 @@ export default class Line{
         this.showLine= false;
         this.linesRect= linesRect;
     }
-    setPoints(points){
-        this.points= points;
-    }
-
     draw(context){
         if(!this.isLineOn && !this.isShowing)
             return;
         // console.log("Usao u draw");
         context.beginPath();
         context.strokeStyle= "white";
+        context.lineWidth= 5;
         context.moveTo(this.points[0][0]-5,this.points[0][1]);
         for(let i= 1; i < this.points.length; i++){
             context.lineTo(this.points[i][0], this.points[i][1]);
@@ -23,6 +20,10 @@ export default class Line{
         context.stroke();
         context.fillStyle= "white";
         context.fillRect(this.points[0][0]-(this.linesRect+5), this.points[0][1]-10, this.linesRect, this.linesRect); 
+    }
+
+    setPoints(points){
+        this.points= points;
     }
 
     setLineOn(isOn){
@@ -36,6 +37,7 @@ export default class Line{
     setShowLine(isShowing){
         this.showLine= isShowing;
     }
+
     drawLineSign(context){
         if(!this.isLineOn && !this.isShowing)
             return;
