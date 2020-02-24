@@ -5,16 +5,17 @@ import ReelDisplay from './ReelDisplay.js';
 import Reel from './Reel.js';
 import ReelPart from './ReelPart.js';
 import Margin from './Margin.js';
-import Line from './Line.js';
 import LinesBtn from './LinesBtn.js';
 import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
 import Calculations from './Calculations.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
+const NUMBER_OF_REELS= 5, NUMBER_OF_REEL_PARTS= 4, SPACE_BETWEEN_REELS= 20;
 const LEFT_EDGE= 80,RIGHT_EDGE= 5*REEL_WIDTH+160;
 const LINES_RECT= 20;
 const NUMBER_OF_LINES= 9;
+
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -28,8 +29,8 @@ let topMarg= new Margin(GAME_WIDTH,120,0,0);
 
 let reelParts= [[],[],[],[],[]];
 
-for(let i= 0; i < 5; i++){
-    for(let j= 0; j < 4; j++){
+for(let i= 0; i < NUMBER_OF_REELS; i++){
+    for(let j= 0; j < NUMBER_OF_REEL_PARTS; j++){
         reelParts[i].push(new ReelPart(REEL_WIDTH,REEL_HEIGHT));
     }
 }
@@ -37,16 +38,16 @@ for(let i= 0; i < 5; i++){
 let reels= [];
 let reelPositionsX= LEFT_EDGE;
 
-for(let i= 0; i < 5; i++){
+for(let i= 0; i < NUMBER_OF_REELS; i++){
     reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, i, reelParts[i]));
-    reelPositionsX+= REEL_WIDTH+20;
+    reelPositionsX+= REEL_WIDTH+SPACE_BETWEEN_REELS;
 }
-let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT);
+let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT,SPACE_BETWEEN_REELS);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let graphicDisplayArray= [reelDisplay, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn];
 
 let oneRoundSimbolCombination= [];
-let oneRoundWin;
+let oneRoundWin= 0;
 
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
@@ -56,7 +57,7 @@ canvas.addEventListener('click', function(event) {
             spinBtn.switchOn(true);
             for(let i= 0; i < 5; i++){
                 oneRoundSimbolCombination.push(reels[i].shufle());
-                reels[i].setSpining();
+                reels[i].startSpining();
             }
             oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination);
         }
@@ -69,27 +70,27 @@ canvas.addEventListener('click', function(event) {
     }
 });
 
-let numbOfActiveReels= 0; //zbog slozenosti ove f-je promenjiva je globalna
+let numbOfOffReels= 0; //zbog slozenosti ove f-je promenjiva je globalna
 function update(){
     if(spinBtn.isActive()){
-        for(let i= 0; i < 5; i++){
+        for(let i= 0; i < NUMBER_OF_REELS; i++){
             if(reels[i].isSpining()){
                 reels[i].endingSpin();
                 reels[i].updateSpinCountdown();
             }
         }
+        for(let i= numbOfOffReels; i < NUMBER_OF_REELS; i++){
+            if(!reels[i].isSpining())
+                numbOfOffReels++;
+        }
+        if(numbOfOffReels == NUMBER_OF_REELS){   
+            spinBtn.switchOn(false);
+            numbOfOffReels= 0;
+            creditBar.increseCredit(oneRoundWin);
+        }
+        linesBtn.updateCounter();
     }
-    for(let i= numbOfActiveReels; i < 5; i++){
-        if(!reels[i].isSpining())
-            numbOfActiveReels++;
-    }
-    if(numbOfActiveReels == 5){   
-        spinBtn.switchOn(false);
-        numbOfActiveReels= 0;
-    }
-    linesBtn.updateCounter();
 }
-
 
 function drawLines(){
     for(let i= 0; i < allLines.length; i++)
@@ -102,11 +103,10 @@ function drawLines(){
     }
 }
 
-
 function graphic(){
     context.clearRect(0,0,400,400);
     for(let i= 0; i < graphicDisplayArray.length; i++){
-        graphicDisplayArray[i].draw(context);
+        graphicDisplayArray[i].draw(context);//
         if(i == 0){
             for(let j= 0; j < 5; j++){
                 reels[j].draw(context);

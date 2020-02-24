@@ -1,7 +1,7 @@
 import Line from './Line.js';
 
 export default class LinesCreator{
-    static createLines(REEL_WIDTH,REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE,LINES_RECT){
+    static createLines(REEL_WIDTH,REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE,LINES_RECT,SPACE_BETWEEN_REELS){
         let straithLines=[];
         let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
         for(let i= 1; i < 4; i++){
@@ -18,44 +18,44 @@ export default class LinesCreator{
         vLines.push(new Line(LINES_RECT));
         vLines[0].setPoints([[LEFT_EDGE,REEL_HEIGHT/4+LINES_RECT],
                             [LEFT_EDGE+10,REEL_HEIGHT/4+LINES_RECT],
-                            [(LEFT_EDGE+(REEL_WIDTH/2)*5)+2*20,(REEL_HEIGHT/8)*7-LINES_RECT],
-                            [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT/4+LINES_RECT]                                                        
+                            [(LEFT_EDGE+(REEL_WIDTH/2)*5)+2*SPACE_BETWEEN_REELS,(REEL_HEIGHT/8)*7-LINES_RECT],
+                            [LEFT_EDGE+REEL_WIDTH*5+4*SPACE_BETWEEN_REELS,REEL_HEIGHT/4+LINES_RECT]                                                        
         ]);
         vLines.push(new Line(LINES_RECT));
         vLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT-LINES_RECT],
                             [LEFT_EDGE+10,REEL_HEIGHT-LINES_RECT],
-                            [LEFT_EDGE+(REEL_WIDTH*5)/2+40,(REEL_HEIGHT/8)*3+LINES_RECT],
-                            [LEFT_EDGE+REEL_WIDTH*5+80,REEL_HEIGHT-LINES_RECT]
+                            [LEFT_EDGE+(REEL_WIDTH*5)/2+2*SPACE_BETWEEN_REELS,(REEL_HEIGHT/8)*3+LINES_RECT],
+                            [LEFT_EDGE+REEL_WIDTH*5+4*SPACE_BETWEEN_REELS,REEL_HEIGHT-LINES_RECT]
         ]);
 
         let longVLines= [];
         longVLines.push(new Line(LINES_RECT));
         longVLines[0].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*2+LINES_RECT],
                                 [LEFT_EDGE+10,(REEL_HEIGHT/4)*2+LINES_RECT],
-                                [LEFT_EDGE+(REEL_WIDTH/2)*3+20+LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
-                                [LEFT_EDGE+60+(REEL_WIDTH/2)*7-LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
-                                [LEFT_EDGE+80+REEL_WIDTH*5,(REEL_HEIGHT/4)*2+LINES_RECT]
+                                [LEFT_EDGE+(REEL_WIDTH/2)*3+SPACE_BETWEEN_REELS+LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
+                                [LEFT_EDGE+3*SPACE_BETWEEN_REELS+(REEL_WIDTH/2)*7-LINES_RECT,(REEL_HEIGHT/8)*7+LINES_RECT],
+                                [LEFT_EDGE+4*SPACE_BETWEEN_REELS+REEL_WIDTH*5,(REEL_HEIGHT/4)*2+LINES_RECT]
         ]);
         longVLines.push(new Line(LINES_RECT));
         longVLines[1].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*3-LINES_RECT],
                                 [LEFT_EDGE+10,(REEL_HEIGHT/4)*3-LINES_RECT],
-                                [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+20,(REEL_HEIGHT/8)*3-LINES_RECT],
-                                [LEFT_EDGE+(REEL_WIDTH/2)*7-LINES_RECT+60,(REEL_HEIGHT/8)*3-LINES_RECT],
-                                [LEFT_EDGE+5*REEL_WIDTH+80,(REEL_HEIGHT/4)*3-LINES_RECT]
+                                [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+SPACE_BETWEEN_REELS,(REEL_HEIGHT/8)*3-LINES_RECT],
+                                [LEFT_EDGE+(REEL_WIDTH/2)*7-LINES_RECT+3*SPACE_BETWEEN_REELS,(REEL_HEIGHT/8)*3-LINES_RECT],
+                                [LEFT_EDGE+5*REEL_WIDTH+4*SPACE_BETWEEN_REELS,(REEL_HEIGHT/4)*3-LINES_RECT]
         ]);
 
         let zLines= [];
         zLines.push(new Line(LINES_RECT));
         zLines[0].setPoints([[LEFT_EDGE,(REEL_HEIGHT/4)*3+LINES_RECT],
-                            [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+20,(REEL_HEIGHT/4)*3+LINES_RECT],
-                            [LEFT_EDGE+(REEL_WIDTH/2)*7+60-LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
-                            [LEFT_EDGE+5*REEL_WIDTH+80,REEL_HEIGHT/2-LINES_RECT]
+                            [LEFT_EDGE+(REEL_WIDTH/2)*3+LINES_RECT+SPACE_BETWEEN_REELS,(REEL_HEIGHT/4)*3+LINES_RECT],
+                            [LEFT_EDGE+(REEL_WIDTH/2)*7+3*SPACE_BETWEEN_REELS-LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
+                            [LEFT_EDGE+5*REEL_WIDTH+4*SPACE_BETWEEN_REELS,REEL_HEIGHT/2-LINES_RECT]
         ]);
         zLines.push(new Line(LINES_RECT));
         zLines[1].setPoints([[LEFT_EDGE,REEL_HEIGHT/2-LINES_RECT],
-                            [LEFT_EDGE+(REEL_WIDTH/2)*3+20+LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
-                            [LEFT_EDGE+(REEL_WIDTH/2)*7+60-LINES_RECT,(REEL_HEIGHT/4)*3+LINES_RECT],
-                            [LEFT_EDGE+REEL_WIDTH*5+80,(REEL_HEIGHT/4)*3+LINES_RECT]
+                            [LEFT_EDGE+(REEL_WIDTH/2)*3+SPACE_BETWEEN_REELS+LINES_RECT,REEL_HEIGHT/2-LINES_RECT],
+                            [LEFT_EDGE+(REEL_WIDTH/2)*7+3*SPACE_BETWEEN_REELS-LINES_RECT,(REEL_HEIGHT/4)*3+LINES_RECT],
+                            [LEFT_EDGE+REEL_WIDTH*5+4*SPACE_BETWEEN_REELS,(REEL_HEIGHT/4)*3+LINES_RECT]
         ]);
 
         let allLines=[];

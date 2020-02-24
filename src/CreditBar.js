@@ -23,5 +23,8 @@ export default class CreditBar {
         }
         this.credit-= value;
     }
+    increseCredit(value){
+        this.credit+= value;
+    }
 
 }
