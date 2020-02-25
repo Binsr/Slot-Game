@@ -102,7 +102,6 @@ function drawLines(){
             }
     }
 }
-
 function graphic(){
     context.clearRect(0,0,400,400);
     for(let i= 0; i < graphicDisplayArray.length; i++){

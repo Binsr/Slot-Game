@@ -1,7 +1,9 @@
 import Line from './Line.js';
 
 export default class LinesCreator{
+
     static createLines(REEL_WIDTH,REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE,LINES_RECT,SPACE_BETWEEN_REELS){
+        this.allLines=[];
         let straithLines=[];
         let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);
         for(let i= 1; i < 4; i++){
@@ -58,12 +60,12 @@ export default class LinesCreator{
                             [LEFT_EDGE+REEL_WIDTH*5+4*SPACE_BETWEEN_REELS,(REEL_HEIGHT/4)*3+LINES_RECT]
         ]);
 
-        let allLines=[];
-        allLines.push(straithLines);
-        allLines.push(vLines);
-        allLines.push(longVLines);
-        allLines.push(zLines);
-
-        return allLines;
+        this.allLines.push(straithLines);
+        this.allLines.push(vLines);
+        this.allLines.push(longVLines);
+        this.allLines.push(zLines);
+        return this.allLines;
     }
+
+
 }

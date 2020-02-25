@@ -15,7 +15,7 @@ export default class Line{
         context.lineWidth= 5;
         context.moveTo(this.points[0][0]-5,this.points[0][1]);
         for(let i= 1; i < this.points.length; i++){
-            context.lineTo(this.points[i][0], this.points[i][1]);
+            context.lineTo(this.points[i][0], this.points[i][1]);//OVO MOZE DA BUDE NIZ STRURUKTURE TO JEST OBJEKTA U JS U points[i].x
         }
         context.stroke();
         context.fillStyle= "white";
