@@ -27,7 +27,7 @@ export default class SpinBtn {
     isActive(){
         return this.spinning;
     }
-    switchOn(s){
-        this.spinning= s;
+    switchActiveOn(b){
+        this.spinning= b;
     }
 }

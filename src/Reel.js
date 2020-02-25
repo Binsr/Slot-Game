@@ -2,7 +2,8 @@ import ReelParts from './ReelPart.js';
 import Calculations from './Calculations.js';
 
 export default class Reel{
-    constructor(posX, posY, width, height, reelNumber, reelParts){
+    constructor(posX, posY, width, height, reelNumber, reelParts,symbols){ //PROSLEDI MU I SIMBOLE*** SYMBOL TREBA DA IMA VALUE
+        this.symbols= symbols;
         this.width= width;
         this.height= height;
         this.reelParts= reelParts;                                   // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
@@ -25,7 +26,6 @@ export default class Reel{
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setPosX(this.position.x);
             this.reelParts[i].setPosY(y);
-            this.reelParts[i].setCollor(collors[i]);
             y+= Math.round(height/4);
         }
     }
@@ -46,41 +46,26 @@ export default class Reel{
         this.spining= true;
     }
 
-    // shufle(){       // biramo random el sa svim znakovima pa na to mesto ubacimo poslednji el niza i smanjimo velicinu za jedan
-    //     let collorComb= [["red","blue","green","red"],//
-    //                     ["green","red","blue","green"],
-    //                     ["blue","green","red","blue"]];
-
-    //     let randCollorPick= Math.floor(Math.random() * Math.floor(3))%3;
-    //     let collors= collorComb[randCollorPick];
-    //     for(let i= 0; i < this.reelParts.length; i++){
-    //         this.reelParts[i].setCollor(collors[i]);
-    //     }
-    //     return collorComb[randCollorPick];
-    // }
-
     shufle(){
-        let indexOfallSymbols= [0,1,2,3,4,5];
+        let indexOfallSymbols= [0,1,2,3];
         let indexOfLast= indexOfallSymbols.length-1;
 
-        let allSymbolsArray= ["pink","red","green","blue","white","yellow"];
-
+        // let allSymbolsArray= ["red","green","blue","white","yellow","pink"];
+        let allSymbolsArray= this.symbols;
         let chosenComb=[];
 
         let randSymbolPick;
         for(let i= 0; i < this.reelParts.length; i++){
             randSymbolPick= Math.floor(Math.random() * Math.floor(indexOfLast+1));
-            console.log(randSymbolPick);
-            chosenComb.push(indexOfallSymbols[randSymbolPick]);
+            chosenComb.push(indexOfallSymbols[randSymbolPick]); //NE TREBAM INDEKSE NEGO SIMBOLE
             indexOfallSymbols[randSymbolPick]= indexOfallSymbols[indexOfLast];
             indexOfLast--;
         }
         for(let i= 0; i < chosenComb.length; i++){
-            this.reelParts[i].setCollor(allSymbolsArray[chosenComb[i]]);
+            this.reelParts[i].setSymbol(allSymbolsArray[chosenComb[i]]);
         }
+        return chosenComb;
     }
-
-
 
     endingSpin(){
         for(let i= 0; i < this.reelParts.length; i++){
@@ -92,7 +77,7 @@ export default class Reel{
             this.indexOfSwitcReelPart= (this.indexOfSwitcReelPart-1);
             if(this.indexOfSwitcReelPart < 0)
                 this.indexOfSwitcReelPart= 3;
-            this.reelParts[(this.indexOfSwitcReelPart+1)%4].setCollor(this.reelParts[this.indexOfSwitcReelPart].getCollor());
+            this.reelParts[(this.indexOfSwitcReelPart+1)%4].setSymbol(this.reelParts[this.indexOfSwitcReelPart].getSymbol());
             this.iterator= 0;
         }
     }

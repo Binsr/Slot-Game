@@ -39,8 +39,7 @@ export default class LinesBtn{
         if(d1 < 30){
             if(this.linesActive == this.numbOfLines)
                 return true;
-            this.lines[this.iteratorX][this.iteratorY].setLineOn(true);
-            this.lines[this.iteratorX][this.iteratorY].setShowLine(true);
+            this.lines[this.iteratorX][this.iteratorY].switchActiveOn(true);
             if(this.iteratorY == this.lines[this.iteratorX].length-1){
                 this.iteratorX++;
                 this.iteratorY= 0;
@@ -60,7 +59,7 @@ export default class LinesBtn{
             }else{
                 this.iteratorY--;
             }
-            this.lines[this.iteratorX][this.iteratorY].setLineOn(false);
+            this.lines[this.iteratorX][this.iteratorY].switchActiveOn(false);
             this.lines[this.iteratorX][this.iteratorY].setShowLine(false);
             this.linesActive--;
             return true;    

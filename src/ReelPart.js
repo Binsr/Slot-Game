@@ -1,5 +1,6 @@
+import Symbols from "./Symbols.js";
 export default class ReelPart{
-    constructor(width, height){
+    constructor(width, height,symbol){
         this.width= width;
         this.height= Math.round(height/4);
         this.collor= "red";
@@ -7,6 +8,7 @@ export default class ReelPart{
             x: null,
             y: null,
         };
+        this.symbol= symbol;
     }
     setPosX(x){
         this.position.x= x;
@@ -14,8 +16,8 @@ export default class ReelPart{
     setPosY(y){
         this.position.y= y;
     }
-    setCollor(collor){
-        this.collor= collor;
+    setSymbol(symbol){
+        this.symbol= symbol;
     }
     updatePosY(speed){
         this.position.y+=speed;
@@ -29,8 +31,11 @@ export default class ReelPart{
     getHeight(){
         return this.height;
     }
+    getSymbol(){
+        return this.symbol;
+    }
+
     draw(context){
-        context.fillStyle= this.collor;
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        this.symbol.draw(context, this.width, this.height, this.position.x, this.position.y);
     }
 }
