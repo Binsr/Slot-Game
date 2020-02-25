@@ -1,7 +1,17 @@
 export default class Symbols{
     constructor(id,value){
         this.id= id;
-        this.value= value;    
+        this.value= value;  
+        this.color= null;
+        
+        if(id == 1)
+            this.color= "red";
+        else if(id == 2)
+            this.color= "green";
+        else if(id == 3)
+            this.color= "blue";
+        else
+            this.color= "yellow";
     }
 
     getId(){

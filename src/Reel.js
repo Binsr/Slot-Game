@@ -22,7 +22,6 @@ export default class Reel{
         };
         let y= this.position.y;
 
-        let collors= ["red","blue","green","red"];
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].setPosX(this.position.x);
             this.reelParts[i].setPosY(y);
@@ -57,13 +56,14 @@ export default class Reel{
         let randSymbolPick;
         for(let i= 0; i < this.reelParts.length; i++){
             randSymbolPick= Math.floor(Math.random() * Math.floor(indexOfLast+1));
-            chosenComb.push(indexOfallSymbols[randSymbolPick]); //NE TREBAM INDEKSE NEGO SIMBOLE
+            chosenComb.push(allSymbolsArray[indexOfallSymbols[randSymbolPick]]); //NE TREBAM INDEKSE NEGO SIMBOLE
             indexOfallSymbols[randSymbolPick]= indexOfallSymbols[indexOfLast];
             indexOfLast--;
         }
         for(let i= 0; i < chosenComb.length; i++){
-            this.reelParts[i].setSymbol(allSymbolsArray[chosenComb[i]]);
+            this.reelParts[i].setSymbol(chosenComb[i]);
         }
+        console.log(chosenComb);
         return chosenComb;
     }
 
@@ -77,7 +77,6 @@ export default class Reel{
             this.indexOfSwitcReelPart= (this.indexOfSwitcReelPart-1);
             if(this.indexOfSwitcReelPart < 0)
                 this.indexOfSwitcReelPart= 3;
-            this.reelParts[(this.indexOfSwitcReelPart+1)%4].setSymbol(this.reelParts[this.indexOfSwitcReelPart].getSymbol());
             this.iterator= 0;
         }
     }

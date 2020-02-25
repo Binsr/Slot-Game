@@ -31,16 +31,18 @@ let topMarg= new Margin(GAME_WIDTH,TOP_MARGIN_HEIGHT,0,0);
 
 let reelParts= [[],[],[],[],[]];
 
-for(let i= 0; i < NUMBER_OF_REELS; i++){
-    for(let j= 0; j < NUMBER_OF_REEL_PARTS; j++){
-        reelParts[i].push(new ReelPart(REEL_WIDTH,REEL_HEIGHT,new Symbols(j+1,5)));
-    }
-}
 let symbols= [];
 symbols.push(new Symbols(1,5));
 symbols.push(new Symbols(2,5));
 symbols.push(new Symbols(3,5));
 symbols.push(new Symbols(4,5));
+
+for(let i= 0; i < NUMBER_OF_REELS; i++){
+    for(let j= 0; j < NUMBER_OF_REEL_PARTS; j++){
+        reelParts[i].push(new ReelPart(REEL_WIDTH,REEL_HEIGHT,symbols[j]));
+    }
+}
+
 
 let reels= [];
 let reelPositionsX= LEFT_EDGE;
@@ -62,11 +64,12 @@ canvas.addEventListener('click', function(event) {
             creditBar.updateCredit(betBtn.getBet());
             linesBtn.setCounter(0);
             spinBtn.switchActiveOn(true);
-            for(let i= 0; i < 5; i++){
+            for(let i= 0; i < NUMBER_OF_REELS; i++){
                 oneRoundSimbolCombination.push(reels[i].shufle());
                 reels[i].startSpining();
             }
             oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(),allLines,NUMBER_OF_LINES);
+            oneRoundSimbolCombination= [];
         }
     }else if(betBtn.clicked(event.clientX, event.clientY)){
 
