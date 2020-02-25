@@ -11,17 +11,6 @@ export default class BetBtn{
         };
     }
 
-    draw(context){
-        context.fillStyle= this.color;
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        context.fillStyle= "black";
-        context.fillRect(this.position.x-this.width/3, this.position.y, this.width/3, this.height);
-        context.fillStyle= "black";
-        context.fillRect(this.position.x+this.width*2/3, this.position.y, this.width/3, this.height);
-        context.fillStyle= "black";
-        context.fillText(this.bet.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
-    }
-
     clicked(mouseX,mouseY){
         var d1= Math.sqrt(Math.pow(mouseX-70-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));//Udaljenost dve tacke
         var d2= Math.sqrt(Math.pow(mouseX+40-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));
@@ -38,5 +27,16 @@ export default class BetBtn{
     
     getBet(){
         return this.bet;
+    }
+
+    draw(context){
+        context.fillStyle= this.color;
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.fillStyle= "black";
+        context.fillRect(this.position.x-this.width/3, this.position.y, this.width/3, this.height);
+        context.fillStyle= "black";
+        context.fillRect(this.position.x+this.width*2/3, this.position.y, this.width/3, this.height);
+        context.fillStyle= "black";
+        context.fillText(this.bet.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
     }
 }

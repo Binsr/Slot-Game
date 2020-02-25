@@ -10,12 +10,7 @@ export default class CreditBar {
             y: gameHeight-this.height,
         };
     }
-    draw(context){
-        context.fillStyle= this.color;
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        context.fillStyle= "black";
-        context.fillText(this.credit.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
-    }
+    
     updateCredit(value){
         if(this.credit - value <= 0 || this.credit === "Game Over"){
             this.credit= "Game Over";
@@ -23,8 +18,16 @@ export default class CreditBar {
         }
         this.credit-= value;
     }
+
     increseCredit(value){
         this.credit+= value;
+    }
+
+    draw(context){
+        context.fillStyle= this.color;
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.fillStyle= "black";
+        context.fillText(this.credit.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
     }
 
 }

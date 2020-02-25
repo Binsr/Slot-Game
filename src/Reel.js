@@ -30,12 +30,6 @@ export default class Reel{
         }
     }
 
-    draw(context){
-        for(let i= 0; i < this.reelParts.length; i++){
-            this.reelParts[i].draw(context);
-        }
-    }
-
     getPosReelPart(){
         return this.reelParts[5].getPosY();
     }
@@ -52,7 +46,7 @@ export default class Reel{
         this.spining= true;
     }
 
-    shufle(){       // [1,2,3,4] // [1,1,1,0], [1,2,3,4,5,6,7,8,9]
+    shufle(){       // biramo random el sa svim znakovima pa na to mesto ubacimo poslednji el niza i smanjimo velicinu za jedan
         let collorComb= [["red","blue","green","red"],//
                         ["green","red","blue","green"],
                         ["blue","green","red","blue"]];
@@ -96,5 +90,11 @@ export default class Reel{
             this.spining= false;
         }
 
+    }
+    
+    draw(context){
+        for(let i= 0; i < this.reelParts.length; i++){
+            this.reelParts[i].draw(context);
+        }
     }
 }

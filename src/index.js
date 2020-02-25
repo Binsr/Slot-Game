@@ -59,7 +59,7 @@ canvas.addEventListener('click', function(event) {
                 oneRoundSimbolCombination.push(reels[i].shufle());
                 reels[i].startSpining();
             }
-            oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination);
+            oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet());
         }
     }else if(betBtn.clicked(event.clientX, event.clientY)){
 
@@ -102,7 +102,7 @@ function drawLines(){
             }
     }
 }
-function graphic(){
+function draw(){
     context.clearRect(0,0,400,400);
     for(let i= 0; i < graphicDisplayArray.length; i++){
         graphicDisplayArray[i].draw(context);//
@@ -120,7 +120,7 @@ function gameLoop(timeStamp){
     let deltaTime= timeStamp - lastTime;
     lastTime= timeStamp;
     update();
-    graphic();
+    draw();
     requestAnimationFrame(gameLoop);
 }
 requestAnimationFrame(gameLoop);
