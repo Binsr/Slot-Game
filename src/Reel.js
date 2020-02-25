@@ -2,13 +2,13 @@ import ReelParts from './ReelPart.js';
 import Calculations from './Calculations.js';
 
 export default class Reel{
-    constructor(posX, posY, width, height, reelNumber, reelParts){ //Pozovi za speen time calculations
+    constructor(posX, posY, width, height, reelNumber, reelParts){
         this.width= width;
         this.height= height;
         this.reelParts= reelParts;                                   // *spinSpeed- broj piksela za koliko pomeramo jedno parce reel-a u jednom frame-u
                                                                     //|---------------------------------------------------------------------------------------------------|
         this.spinSpeed= 60;                                         //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
-        this.oneSpinLen= 2;                                         //|                                                                                                   |
+        this.oneSpinLen= reelParts[0].getHeight()/60;               //|                                                                                                   |
         this.spinTime= Calculations.calcSpinTime(reelNumber);       //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
         this.spinCountdown= this.spinTime;                          //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
                                                                     //|---------------------------------------------------------------------------------------------------|
@@ -46,18 +46,41 @@ export default class Reel{
         this.spining= true;
     }
 
-    shufle(){       // biramo random el sa svim znakovima pa na to mesto ubacimo poslednji el niza i smanjimo velicinu za jedan
-        let collorComb= [["red","blue","green","red"],//
-                        ["green","red","blue","green"],
-                        ["blue","green","red","blue"]];
+    // shufle(){       // biramo random el sa svim znakovima pa na to mesto ubacimo poslednji el niza i smanjimo velicinu za jedan
+    //     let collorComb= [["red","blue","green","red"],//
+    //                     ["green","red","blue","green"],
+    //                     ["blue","green","red","blue"]];
 
-        let randCollorPick= Math.floor(Math.random() * Math.floor(3))%3;
-        let collors= collorComb[randCollorPick];
+    //     let randCollorPick= Math.floor(Math.random() * Math.floor(3))%3;
+    //     let collors= collorComb[randCollorPick];
+    //     for(let i= 0; i < this.reelParts.length; i++){
+    //         this.reelParts[i].setCollor(collors[i]);
+    //     }
+    //     return collorComb[randCollorPick];
+    // }
+
+    shufle(){
+        let indexOfallSymbols= [0,1,2,3,4,5];
+        let indexOfLast= indexOfallSymbols.length-1;
+
+        let allSymbolsArray= ["pink","red","green","blue","white","yellow"];
+
+        let chosenComb=[];
+
+        let randSymbolPick;
         for(let i= 0; i < this.reelParts.length; i++){
-            this.reelParts[i].setCollor(collors[i]);
+            randSymbolPick= Math.floor(Math.random() * Math.floor(indexOfLast+1));
+            console.log(randSymbolPick);
+            chosenComb.push(indexOfallSymbols[randSymbolPick]);
+            indexOfallSymbols[randSymbolPick]= indexOfallSymbols[indexOfLast];
+            indexOfLast--;
         }
-        return collorComb[randCollorPick];
+        for(let i= 0; i < chosenComb.length; i++){
+            this.reelParts[i].setCollor(allSymbolsArray[chosenComb[i]]);
+        }
     }
+
+
 
     endingSpin(){
         for(let i= 0; i < this.reelParts.length; i++){
@@ -91,7 +114,7 @@ export default class Reel{
         }
 
     }
-    
+
     draw(context){
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].draw(context);
