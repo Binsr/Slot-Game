@@ -26,6 +26,10 @@ export default class Line{
         return this.isLineOn;
     }
 
+    linesOnShowSwitch(b){
+        this.showLine= b;
+    }
+
     setLinesNumb(numb){
         this.lineNumber= numb;
     }

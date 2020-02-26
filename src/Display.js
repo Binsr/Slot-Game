@@ -1,5 +1,6 @@
+import Line from "./Line.js";
 export default class Display{
-    constructor(posX, posY, width, height){
+    constructor(posX, posY, width, height){ //IZBACI MAGICNE BROJEVE IZ SETTIME ZA SPIN I OSTALE SLUCAJEVE
         
         this.width= width;
         this.height= height;
@@ -13,6 +14,10 @@ export default class Display{
             x: posX - this.width/2,
             y: posY - this.height/2
         };
+
+        this.winLines= [];
+        this.linesTimer= 0;
+
     }
 
     setMessage(msg){
@@ -32,7 +37,35 @@ export default class Display{
         }
         this.counter--;
     }
+    setWinLines(lines){
+        this.winLines= lines;
+    }
+
+    setLinesTimer(time){
+        this.linesTimer= time;
+        for(let i= 0; i < this.winLines.length; i++){
+            this.winLines[i].linesOnShowSwitch(true);
+        }
+        console.log(this.winLines);
+    }
+    turnOfLinesShow(){
+        this.winLines= [];
+    }
+
+    updateLinesTimer(){
+        if(this.linesTimer == 0){
+            for(let i= 0; i < this.winLines; i++){
+                this.winLines[i].linesOnShowSwitch(false);
+            }
+            this.winLines= [];
+        }
+        this.linesTimer--;
+    }
     
+    drawWinLines(context){
+        for(let i= 0; i < this.winLines.length; i++)
+            this.winLines[i].draw(context);
+    }
 
     draw(context){
         context.fillStyle= "black";

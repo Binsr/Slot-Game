@@ -69,6 +69,7 @@ canvas.addEventListener('click', function(event) {
                 display.setMessage("No credit");
                 display.setMessageTime(100);
             }else{
+                display.turnOfLinesShow();
                 display.setColorOfMessage("green");
                 display.setMessage("Spinning!");
                 display.setMessageTime(200);
@@ -79,7 +80,7 @@ canvas.addEventListener('click', function(event) {
                     oneRoundSimbolCombination.push(reels[i].shufle());
                     reels[i].startSpining();
                 }
-                oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(),allLines,NUMBER_OF_LINES);
+                oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(),allLines,NUMBER_OF_LINES,display);
                 oneRoundSimbolCombination= [];
             }
         }
@@ -115,9 +116,12 @@ function update(){
             }
             creditBar.increseCredit(oneRoundWin);
         }
+    }else{
+        display.updateLinesTimer();
     }
     linesBtn.updateCounter();
     display.updateDisplay();
+
 }
 
 function drawLines(){
@@ -129,6 +133,8 @@ function drawLines(){
                 allLines[i][j].drawLineSign(context);
             }
     }
+    if(!spinBtn.isActive())
+        display.drawWinLines(context);
 }
 function draw(){
     context.clearRect(0,0,400,400); // IZBACI OVE MAGICNE BROJEVE

@@ -1,5 +1,6 @@
 import LinesCreator from './LinesCreator.js';
 import Line from './Line.js';
+import Display from './Display.js';
 export default class Calculations{
 
     //spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  
@@ -7,10 +8,12 @@ export default class Calculations{
         return 82+5*reelNumber*8;
     }
 
-    static calcWin(symbolComb,bet,allLines,numbOfLines){
+    static calcWin(symbolComb,bet,allLines,numbOfLines,display){
         let win= 0;
-        for(let i= 1; i <= numbOfLines; i++)
-            if(LinesCreator.getLine(i,allLines).isLineActive()){
+        let winLines= [];
+        for(let i= 1; i <= numbOfLines; i++){
+            let line= LinesCreator.getLine(i,allLines);
+            if(line.isLineActive()){
                 let logPos= LinesCreator.getLine(i,allLines).getLogicPoints();
 
                 let s1= symbolComb[logPos[0].reel][logPos[0].reelPart];
@@ -23,16 +26,24 @@ export default class Calculations{
 
                 if(s1.getId() === s2.getId()){
                     if(s1.getId() === s3.getId()){
+                        winLines.push(line);
                         oneLineWin= bet*s1.getValue();
-                        if(s1.getId() === s4.getId())
+                        if(s1.getId() === s4.getId()){
                             oneLineWin*= s1.getValue();
-                        if(s1.getId() === s5.getId())
-                            oneLineWin*= s5.getValue();
+                            if(s1.getId() === s5.getId())
+                                oneLineWin*= s5.getValue();
+                        }
+
                     }
                 }
                 console.log(oneLineWin);
                 win+= oneLineWin;
             }
+        }
+        if(winLines.length != 0){
+            display.setWinLines(winLines);
+            display.setLinesTimer(100);
+        }
         return win;
     }
 
