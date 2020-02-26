@@ -63,7 +63,6 @@ export default class Reel{
         for(let i= 0; i < chosenComb.length; i++){
             this.reelParts[i].setSymbol(chosenComb[i]);
         }
-        console.log(chosenComb);
         return chosenComb;
     }
 

@@ -60,7 +60,6 @@ export default class LinesBtn{
                 this.iteratorY--;
             }
             this.lines[this.iteratorX][this.iteratorY].switchActiveOn(false);
-            this.lines[this.iteratorX][this.iteratorY].setShowLine(false);
             this.linesActive--;
             return true;    
         }

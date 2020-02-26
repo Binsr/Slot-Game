@@ -30,6 +30,9 @@ export default class Line{
     getLineNumb(){
         return this.lineNumber;
     }
+    getLogicPoints(){
+        return this.logicPoints;
+    }
 
     drawLineSign(context){
         if(!this.isLineOn && !this.isShowing)
