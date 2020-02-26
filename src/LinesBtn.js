@@ -82,6 +82,9 @@ export default class LinesBtn{
         this.counter= time;
         this.showLines= false;
     }
+    getNumbOfActiveLines(){
+        return this.linesActive;
+    }
 
     getShowStatus(){
         return this.showLines;

@@ -9,23 +9,29 @@ export default class Calculations{
 
     static calcWin(symbolComb,bet,allLines,numbOfLines){
         let win= 0;
-        //LinesCreator.getLine(9,allLines);
         for(let i= 1; i <= numbOfLines; i++)
             if(LinesCreator.getLine(i,allLines).isLineActive()){
                 let logPos= LinesCreator.getLine(i,allLines).getLogicPoints();
                 console.log("sim",symbolComb);
                 console.log("pozicije",logPos);
-                console.log(symbolComb[logPos[0].reel][logPos[0].reelPart].getId());
-                console.log(symbolComb[logPos[1].reel][logPos[1].reelPart].getId());
-                console.log(symbolComb[logPos[2].reel][logPos[2].reelPart].getId());
+                let s1= symbolComb[logPos[0].reel][logPos[0].reelPart];
+                let s2= symbolComb[logPos[1].reel][logPos[1].reelPart];
+                let s3= symbolComb[logPos[2].reel][logPos[2].reelPart];
+                let s4= symbolComb[logPos[3].reel][logPos[3].reelPart];
+                let s5= symbolComb[logPos[4].reel][logPos[4].reelPart];
 
-                if(symbolComb[logPos[0].reel][logPos[0].reelPart].getId() ===
-                symbolComb[logPos[1].reel][logPos[1].reelPart].getId()){
-                    if(symbolComb[logPos[0].reel][logPos[0].reelPart].getId() === 
-                    symbolComb[logPos[2].reel][logPos[2].reelPart].getId())
-                    win+=10;
+                let oneLineWin= 0;
+
+                if(s1.getId() === s2.getId()){
+                    if(s1.getId() === s3.getId()){
+                        oneLineWin= bet*s1.getValue();
+                        if(s1.getId() === s4.getId())
+                            oneLineWin*= s1.getValue();
+                        if(s1.getId() === s5.getId())
+                            oneLineWin*= s5.getValue();
+                    }
                 }
-
+                win+= oneLineWin;
             }
         return win;
     }

@@ -61,7 +61,7 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
-            creditBar.updateCredit(betBtn.getBet());
+            creditBar.updateCredit(betBtn.getBet()*linesBtn.getNumbOfActiveLines());
             linesBtn.setCounter(0);
             spinBtn.switchActiveOn(true);
             for(let i= 0; i < NUMBER_OF_REELS; i++){
