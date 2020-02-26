@@ -12,8 +12,7 @@ export default class Calculations{
         for(let i= 1; i <= numbOfLines; i++)
             if(LinesCreator.getLine(i,allLines).isLineActive()){
                 let logPos= LinesCreator.getLine(i,allLines).getLogicPoints();
-                console.log("sim",symbolComb);
-                console.log("pozicije",logPos);
+
                 let s1= symbolComb[logPos[0].reel][logPos[0].reelPart];
                 let s2= symbolComb[logPos[1].reel][logPos[1].reelPart];
                 let s3= symbolComb[logPos[2].reel][logPos[2].reelPart];
@@ -31,6 +30,7 @@ export default class Calculations{
                             oneLineWin*= s5.getValue();
                     }
                 }
+                console.log(oneLineWin);
                 win+= oneLineWin;
             }
         return win;

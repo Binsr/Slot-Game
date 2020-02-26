@@ -23,6 +23,10 @@ export default class CreditBar {
         this.credit+= value;
     }
 
+    getCredit(){
+        return this.credit;
+    }
+
     draw(context){
         context.fillStyle= this.color;
         context.fillRect(this.position.x, this.position.y, this.width, this.height);

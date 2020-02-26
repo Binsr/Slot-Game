@@ -61,15 +61,19 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
-            creditBar.updateCredit(betBtn.getBet()*linesBtn.getNumbOfActiveLines());
-            linesBtn.setCounter(0);
-            spinBtn.switchActiveOn(true);
-            for(let i= 0; i < NUMBER_OF_REELS; i++){
-                oneRoundSimbolCombination.push(reels[i].shufle());
-                reels[i].startSpining();
+            if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
+                console.log("No credit");
+            }else{
+                creditBar.updateCredit(betBtn.getBet()*linesBtn.getNumbOfActiveLines());
+                linesBtn.setCounter(0);
+                spinBtn.switchActiveOn(true);
+                for(let i= 0; i < NUMBER_OF_REELS; i++){
+                    oneRoundSimbolCombination.push(reels[i].shufle());
+                    reels[i].startSpining();
+                }
+                oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(),allLines,NUMBER_OF_LINES);
+                oneRoundSimbolCombination= [];
             }
-            oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(),allLines,NUMBER_OF_LINES);
-            oneRoundSimbolCombination= [];
         }
     }else if(betBtn.clicked(event.clientX, event.clientY)){
 
