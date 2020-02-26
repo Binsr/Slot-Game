@@ -4,7 +4,7 @@ export default class BetBtn{
         this.height= 30;   
         this.color= "green";
         this.iterator= 0;
-        this.bets= [1,2,3,5,10,15,20];
+        this.bets= [1,2,3,5,10,15,20,50];
         this.bet= this.bets[this.iterator];
 
         this.position= {
@@ -43,6 +43,8 @@ export default class BetBtn{
         context.fillStyle= "black";
         context.fillRect(this.position.x+this.width*2/3, this.position.y, this.width/3, this.height);
         context.fillStyle= "black";
-        context.fillText(this.bet.toString(), this.position.x+this.width/4, this.position.y+this.height/2);
+        context.textAlign="center"; 
+        context.textBaseline = "middle";
+        context.fillText(this.bet.toString(), this.position.x+this.width/3, this.position.y+this.height/2);
     }
 }

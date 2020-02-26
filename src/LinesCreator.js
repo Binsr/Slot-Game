@@ -2,7 +2,7 @@ import Line from './Line.js';
 
 export default class LinesCreator{
 
-    static createLines(REEL_WIDTH,REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE,LINES_RECT,SPACE_BETWEEN_REELS){ //SET LOG POINTS
+    static createLines(REEL_WIDTH,REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE,LINES_RECT,SPACE_BETWEEN_REELS){ //PROVERI LOG POZ
         this.allLines=[];
         let straithLines=[];
         let lineYStart= (REEL_HEIGHT/2)-(REEL_HEIGHT/8);

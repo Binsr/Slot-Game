@@ -4,8 +4,10 @@ export default class Line{
         this.drawPoints= [];
         this.logicPoints= [];
         this.isLineOn= false;
+        this.showLine= false;
+
         this.linesRect= linesRect;
-        this.lineNumber= lineNumber;
+        this.lineNumber= lineNumber;        
     }
 
     setDrawPoints(points){

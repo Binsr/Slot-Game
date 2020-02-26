@@ -1,6 +1,6 @@
 export default class Margin{
-    constructor(width, height, posX, posY){
-        this.width= width;
+    constructor(posX, posY, gameWidth, height){
+        this.width= gameWidth;
         this.height= height;
         
         this.position= {
