@@ -65,8 +65,13 @@ canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
             if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
-                console.log("No credit");
+                display.setColorOfMessage("red");
+                display.setMessage("No credit");
+                display.setMessageTime(100);
             }else{
+                display.setColorOfMessage("green");
+                display.setMessage("Spinning!");
+                display.setMessageTime(200);
                 creditBar.updateCredit(betBtn.getBet()*linesBtn.getNumbOfActiveLines());
                 linesBtn.setCounter(0);
                 spinBtn.switchActiveOn(true);
@@ -103,10 +108,16 @@ function update(){
         if(numbOfOffReels == NUMBER_OF_REELS){   
             spinBtn.switchActiveOn(false);
             numbOfOffReels= 0;
+            if(oneRoundWin > 0){
+                display.setMessage("YOU WON: " + oneRoundWin);
+                display.setMessageTime(100);
+                display.setColorOfMessage("yellow");
+            }
             creditBar.increseCredit(oneRoundWin);
         }
     }
     linesBtn.updateCounter();
+    display.updateDisplay();
 }
 
 function drawLines(){
