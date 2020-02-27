@@ -4,7 +4,7 @@ export default class Display{
         
         this.width= width;
         this.height= height;
-        this.msg= "WELCOME";
+        this.msg= "GOOD LUCK";
         this.msgCollor= "white";
 
         this.countTime= 200;
