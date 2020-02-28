@@ -25,7 +25,10 @@ export default class CreditBar {
 
     draw(context){
         context.fillStyle= this.color;
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.moveTo(this.position.x,this.position.y);
+        context.lineTo(this.position.x+this.width,this.position.y);
+        context.stroke();
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
         context.fillStyle= "black";
         context.textAlign="center"; 
         context.textBaseline = "middle";

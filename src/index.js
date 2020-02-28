@@ -65,7 +65,9 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
-            Music.spin();
+            let wholeBet= betBtn.getBet() * linesBtn.getNumbOfActiveLines();
+            if(creditBar.getCredit() > wholeBet)
+                Music.spin();
             Music.backgroundMusic();
             if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
                 display.setColorOfMessage("red");
