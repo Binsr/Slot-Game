@@ -32,6 +32,19 @@ export default class Symbols{
         }else if(this.id == 3){
             context.fillStyle= "blue";
             context.fillRect(posX, posY, width, height);
+            context.beginPath();
+            context.strokeStyle= "black"; //LEVO UVO
+            context.moveTo(posX+(width/3)-width/10, posY+height/2);
+            context.bezierCurveTo(posX+width/3-width/2, posY-height/8,posX+width/3-width/4,posY-height/8,posX+(width/3)+width/10,posY+height/2);
+            context.stroke();
+
+            context.moveTo(posX+(width/3)*2-width/10, posY+height/2); //DESNO UVO
+            context.bezierCurveTo(posX+width/3*2+width/4, posY-height/8,posX+(width/3)*2+width/2,posY-height/8,posX+(width/3)*2+width/10,posY+height/2);
+            context.stroke();
+
+            // context.moveTo(posX+width/2);
+            context.stroke();
+
         }else if(this.id == 4){
             context.fillStyle= "yellow";
             context.fillRect(posX, posY, width, height);

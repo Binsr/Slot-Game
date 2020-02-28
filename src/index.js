@@ -68,6 +68,7 @@ canvas.addEventListener('click', function(event) {
                 display.setColorOfMessage("red");
                 display.setMessage("No credit");
                 display.setMessageTime(100);
+                document.getElementById("noCredit").play();//NAPRAVI POSOBNU KLASU ZA OVO
             }else{
                 display.turnOfLinesShow();
                 display.setColorOfMessage("green");

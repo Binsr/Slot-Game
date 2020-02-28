@@ -94,6 +94,7 @@ export default class Reel{
             this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
             this.oneSpinLen= 2;  
             this.spining= false;
+            document.getElementById("reelStop").play();
         }
 
     }
