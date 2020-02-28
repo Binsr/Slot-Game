@@ -14,5 +14,15 @@ export default class Music{
         document.getElementById("noCredit").play();
     }
 
+    static lines(){
+        document.getElementById("lines").play();
+    }
 
+    static spin(){
+        document.getElementById("spin").play();
+    }
+
+    static win(){
+        document.getElementById("win").play();
+    }
 }

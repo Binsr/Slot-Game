@@ -1,3 +1,4 @@
+
 export default class LinesBtn{
 
     constructor(gameWidth,gameHeight,lines,numbOfLines){

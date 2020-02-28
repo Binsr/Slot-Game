@@ -65,6 +65,7 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
+            Music.spin();
             Music.backgroundMusic();
             if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
                 display.setColorOfMessage("red");
@@ -92,6 +93,8 @@ canvas.addEventListener('click', function(event) {
     }else if(!spinBtn.isActive()){
         if(linesBtn.clicked(event.clientX,event.clientY)){
             linesBtn.refreshCounter();
+            Music.lines();
+            Music.backgroundMusic();
         }
     }
 });
@@ -118,6 +121,8 @@ function update(){
                 display.setColorOfMessage("yellow");
             }
             creditBar.increseCredit(oneRoundWin);
+            if(oneRoundWin > 0)
+                Music.win();
         }
     }else{
         display.updateLinesTimer();
