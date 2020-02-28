@@ -1,6 +1,6 @@
 import ReelParts from './ReelPart.js';
 import Calculations from './Calculations.js';
-
+import Music from './Music.js';
 export default class Reel{
     constructor(posX, posY, width, height, reelNumber, reelParts,symbols){ //PROSLEDI MU I SIMBOLE*** SYMBOL TREBA DA IMA VALUE
         this.symbols= symbols;
@@ -94,7 +94,7 @@ export default class Reel{
             this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
             this.oneSpinLen= 2;  
             this.spining= false;
-            document.getElementById("reelStop").play();
+            Music.reelStop();
         }
 
     }

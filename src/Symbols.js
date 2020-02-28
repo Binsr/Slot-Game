@@ -25,31 +25,39 @@ export default class Symbols{
     draw(context,width,height,posX,posY){
         if(this.id == 1){
             context.fillStyle= "red";
-            context.fillRect(posX, posY, width, height);
+            this.drawBunny(context,width,height,posX,posY);
         }else if(this.id == 2){
             context.fillStyle= "green";
-            context.fillRect(posX, posY, width, height);
+            this.drawBunny(context,width,height,posX,posY);
         }else if(this.id == 3){
             context.fillStyle= "blue";
-            context.fillRect(posX, posY, width, height);
-            context.beginPath();
-            context.strokeStyle= "black"; //LEVO UVO
-            context.moveTo(posX+(width/3)-width/10, posY+height/2);
-            context.bezierCurveTo(posX+width/3-width/2, posY-height/8,posX+width/3-width/4,posY-height/8,posX+(width/3)+width/10,posY+height/2);
-            context.stroke();
-
-            context.moveTo(posX+(width/3)*2-width/10, posY+height/2); //DESNO UVO
-            context.bezierCurveTo(posX+width/3*2+width/4, posY-height/8,posX+(width/3)*2+width/2,posY-height/8,posX+(width/3)*2+width/10,posY+height/2);
-            context.stroke();
-
-            // context.moveTo(posX+width/2);
-            context.stroke();
-
+            this.drawBunny(context,width,height,posX,posY);
         }else if(this.id == 4){
             context.fillStyle= "yellow";
-            context.fillRect(posX, posY, width, height);
+            this.drawBunny(context,width,height,posX,posY);
         }
     }
+    drawBunny(context,width,height,posX,posY){
+        context.lineWidth= 3;
+        context.fillRect(posX, posY, width, height);
+        context.beginPath();
+        context.strokeStyle= "black"; //LEVO UVO
+        context.moveTo(posX+(width/3)-width/10+2, posY+height/2+20);
+        context.bezierCurveTo(posX+width/3-width/2, posY-height/8,posX+width/3-width/4,posY-height/8,posX+(width/3)+width/10,posY+height/2);
+        // context.stroke();
 
+        context.moveTo(posX+(width/3)*2-width/10, posY+height/2); //DESNO UVO
+        context.bezierCurveTo(posX+width/3*2+width/4, posY-height/8,posX+(width/3)*2+width/2,posY-height/8,posX+(width/3)*2+width/10-2,posY+height/2+20);
+        // context.stroke();
+        // context.moveTo(posX+width/2,posY+(height/4)*3);
+        context.arc(posX+width/2, posY+(height/4)*3, width/4, 0, Math.PI*2, false);
+        context.moveTo(posX+(width/2)+10, posY+(height/4)*3-7);
+        context.arc(posX+(width/2)+10, posY+(height/4)*3-7,8, 0, Math.PI, false);
+        context.moveTo(posX+(width/2)+10, posY+(height/4)*3-7);
+        context.lineTo(posX+(width/2)-10, posY+(height/4)*3-7);
+        context.arc(posX+(width/2)-10, posY+(height/4)*3-7, 8, 0, Math.PI, false);
+        context.lineTo(posX+(width/2)-10, posY+(height/4)*3-7);
+        context.stroke();
+    }
 
 }

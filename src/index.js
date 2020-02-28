@@ -10,6 +10,7 @@ import LinesBtn from './LinesBtn.js';
 import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
 import Calculations from './Calculations.js';
 import Display from './Display.js';
+import Music from './Music.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
@@ -64,11 +65,12 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
+            Music.backgroundMusic();
             if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
                 display.setColorOfMessage("red");
                 display.setMessage("No credit");
                 display.setMessageTime(100);
-                document.getElementById("noCredit").play();//NAPRAVI POSOBNU KLASU ZA OVO
+                Music.noCredit();
             }else{
                 display.turnOfLinesShow();
                 display.setColorOfMessage("green");
