@@ -8,7 +8,7 @@ import Symbols from './Symbols.js';
 import Margin from './Margin.js';
 import LinesBtn from './LinesBtn.js';
 import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
-import Calculations from './Calculations.js';
+import Calculations from './Calculations.js'; //DA NE MOZE bet DOK SE SPINUJE DA SE MENJA
 import Display from './Display.js';
 import Music from './Music.js';
 
@@ -20,7 +20,7 @@ const LINES_RECT= 20;
 const NUMBER_OF_LINES= 9;
 const TOP_MARGIN_HEIGHT= 120;
 const BOT_MARGIN_HEIGHT= 200;
-const DISPLAY_WIDTH= 700,DISPLAY_HEIGHT= 40;
+const DISPLAY_WIDTH= 700,DISPLAY_HEIGHT= 40;//PREPRAVI SIMBOLE CITLJIVOST
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
@@ -36,9 +36,10 @@ let display= new Display(GAME_WIDTH/2, REEL_HEIGHT + DISPLAY_HEIGHT/2+10, DISPLA
 let reelParts= [[],[],[],[],[]];
 
 let symbols= [];
+let coinSimb= new Symbols(3,10);
 symbols.push(new Symbols(1,5));
 symbols.push(new Symbols(2,5));
-symbols.push(new Symbols(3,5));
+symbols.push(coinSimb);
 symbols.push(new Symbols(4,5));
 
 for(let i= 0; i < NUMBER_OF_REELS; i++){
@@ -65,6 +66,7 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
+            symbols[0].stopBunnyAnimation();
             let wholeBet= betBtn.getBet() * linesBtn.getNumbOfActiveLines();
             if(creditBar.getCredit() > wholeBet)
                 Music.spin();
@@ -117,6 +119,7 @@ function update(){
         if(numbOfOffReels == NUMBER_OF_REELS){   
             spinBtn.switchActiveOn(false);
             numbOfOffReels= 0;
+            symbols[0].bunnyAnimationStart();
             if(oneRoundWin > 0){
                 display.setMessage("YOU WON: " + oneRoundWin);
                 display.setMessageTime(100);
@@ -131,7 +134,9 @@ function update(){
     }
     linesBtn.updateCounter();
     display.updateDisplay();
-
+    symbols[0].bunnyAnimationUpdate();
+    coinSimb.coinStartAnimation();
+    coinSimb.coinUpdate();
 }
 
 function drawLines(){

@@ -7,15 +7,19 @@ export default class SpinBtn {
         this.r= 12.5;
 
         this.position= {
-            x: gameWidth/2 - this.width/2,
+            x: gameWidth/2,
             y: gameHeight-this.height/2-10,
         };
     }
     draw(context){
         context.fillStyle= this.color;
-        //context.fillRect(this.position.x, this.position.y, this.width, this.height);
         context.beginPath()
-        context.arc(this.position.x+this.r, this.position.y, 2*this.r, 0, Math.PI*2, false);
+        context.arc(this.position.x, this.position.y, 2*this.r, 0, Math.PI*2, false);
+        context.moveTo(this.position.x,this.position.y-5);
+        context.lineTo(this.position.x,this.position.y+10);
+        // context.lineto(this.position.x-3,this.position.y+12);
+        // context.moveTo(this.position.x,this.position.y+10);
+        // context.lineto(this.position.x+3,this.position.y+12);
         context.stroke();
         context.fill();
     }
