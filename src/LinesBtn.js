@@ -26,8 +26,8 @@ export default class LinesBtn{
     draw(context){
         // context.fillStyle= this.color;
         // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        context.moveTo(this.position.x,this.position.y+1);
-        context.lineTo(this.position.x+this.width,this.position.y+1);
+        context.moveTo(this.position.x,this.position.y);
+        context.lineTo(this.position.x+this.width,this.position.y);
         context.stroke();
         context.fillStyle= "black";
         context.fillRect(this.position.x-this.width/3, this.position.y, this.width/3, this.height);

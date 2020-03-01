@@ -1,4 +1,4 @@
-import Symbols from "./Symbols.js";
+import Symbols from "./Symbol.js";
 export default class ReelPart{
     constructor(width, height,symbol){
         this.width= width;

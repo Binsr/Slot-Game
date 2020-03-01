@@ -4,6 +4,7 @@ export default class CreditBar {
         this.height= 30;
         this.color= "red";
         this.credit= 200;
+        this.gameWidth= gameWidth;
 
         this.position= {
             x: this.width/2,
@@ -26,7 +27,9 @@ export default class CreditBar {
     draw(context){
         context.fillStyle= this.color;
         context.moveTo(this.position.x,this.position.y);
-        context.lineTo(this.position.x+this.width,this.position.y);
+        context.lineTo(this.position.x+this.gameWidth-100,this.position.y);
+        context.moveTo(this.position.x,this.position.y);
+        context.lineTo(this.position.x,this.gameWidth);
         context.stroke();
         // context.fillRect(this.position.x, this.position.y, this.width, this.height);
         context.fillStyle= "black";

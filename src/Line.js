@@ -43,7 +43,7 @@ export default class Line{
     drawLineSign(context){
         if(!this.isLineOn && !this.isShowing)
             return;
-        context.fillStyle= "white";
+        context.fillStyle= "#c0cd00";
         context.fillRect(this.drawPoints[0][0]-25, this.drawPoints[0][1]-10, 20, 20); 
     }
 
@@ -52,14 +52,14 @@ export default class Line{
             return;
         // console.log("Usao u draw");
         context.beginPath();
-        context.strokeStyle= "white";
+        context.strokeStyle= "#c0cd00";
         context.lineWidth= 5;
         context.moveTo(this.drawPoints[0][0]-5,this.drawPoints[0][1]);
         for(let i= 1; i < this.drawPoints.length; i++){
             context.lineTo(this.drawPoints[i][0], this.drawPoints[i][1]);//OVO MOZE DA BUDE NIZ STRURUKTURE TO JEST OBJEKTA U JS U points[i].x
         }
         context.stroke();
-        context.fillStyle= "white";
+        context.fillStyle= "#c0cd00";
         context.fillRect(this.drawPoints[0][0]-(this.linesRect+5), this.drawPoints[0][1]-10, this.linesRect, this.linesRect); 
     }
 }

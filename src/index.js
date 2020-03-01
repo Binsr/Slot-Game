@@ -4,7 +4,7 @@ import CreditBar from './CreditBar.js';
 import ReelsBackground from './ReelsBackground.js';
 import Reel from './Reel.js';
 import ReelPart from './ReelPart.js';
-import Symbols from './Symbols.js';
+import Symbol from './Symbol.js';
 import Margin from './Margin.js';
 import LinesBtn from './LinesBtn.js';
 import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
@@ -38,11 +38,11 @@ let display= new Display(GAME_WIDTH/2, REEL_HEIGHT + DISPLAY_HEIGHT/2+10, DISPLA
 let reelParts= [[],[],[],[],[]];
 
 let symbols= [];
-let coinSimb= new Symbols("coin",COIN_SYMBOL_VALUE);
-symbols.push(new Symbols("redBunny",BUNNY_SYMBOL_VALUE));
-symbols.push(new Symbols("blueBunny",BUNNY_SYMBOL_VALUE));
+let coinSimb= new Symbol("coin",COIN_SYMBOL_VALUE);
+symbols.push(new Symbol("redBunny",BUNNY_SYMBOL_VALUE));
+symbols.push(new Symbol("blueBunny",BUNNY_SYMBOL_VALUE));
 symbols.push(coinSimb);
-symbols.push(new Symbols("yellowBunny",BUNNY_SYMBOL_VALUE));
+symbols.push(new Symbol("greenBunny",BUNNY_SYMBOL_VALUE));
 
 for(let i= 0; i < NUMBER_OF_REELS; i++){
     for(let j= 0; j < NUMBER_OF_REEL_PARTS; j++){
@@ -74,7 +74,7 @@ canvas.addEventListener('click', function(event) {
                 }
             } 
             Music.backgroundMusic();
-            
+
             let wholeBet= betBtn.getBet() * linesBtn.getNumbOfActiveLines();
             if(creditBar.getCredit() > wholeBet)
                 Music.spin();
@@ -163,7 +163,7 @@ function drawLines(){
         display.drawWinLines(context);
 }
 function draw(){
-    context.clearRect(0,0,400,400); // IZBACI OVE MAGICNE BROJEVE
+    context.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT); 
     for(let i= 0; i < graphicDisplayArray.length; i++){
         graphicDisplayArray[i].draw(context);//
         if(i == 0){

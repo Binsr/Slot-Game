@@ -2,13 +2,13 @@ export default class BetBtn{
     constructor(gameWidth, gameHeight){
         this.width= 100;
         this.height= 30;   
-        this.color= "green";
+        this.color= "yellow";
         this.iterator= 0;
         this.bets= [1,2,3,5,10,15,20,50];
         this.bet= this.bets[this.iterator];
 
         this.position= {
-            x: gameWidth - this.width,
+            x: gameWidth - this.width-50,
             y: gameHeight - this.height,
         };
     }

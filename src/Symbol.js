@@ -5,19 +5,10 @@ export default class Symbols{
     constructor(symbolName,value){
         this.id= this.calcId(symbolName);
         this.value= value;  
-        this.color= null;
         
         this.bunnySymbol= new BunnySymbol();
         this.coinSymbol= new CoinSymbol();
 
-        if(this.id == 1)
-            this.color= "red";
-        else if(this.id == 2)
-            this.color= "green";
-        else if(this.id == 3)
-            this.color= "blue";
-        else
-            this.color= "yellow";
     }
 
     getId(){
@@ -42,7 +33,7 @@ export default class Symbols{
             context.fillRect(posX, posY, width, height);
             this.coinSymbol.draw(context,posX,posY);
         }else if(this.id == 4){
-            context.fillStyle= "yellow";
+            context.fillStyle= "green";
             context.fillRect(posX, posY, width, height);
             this.drawBunny(context,width-10,height-16,posX+5,posY+8);
         }
@@ -90,7 +81,7 @@ export default class Symbols{
         if(symbolName == 'blueBunny'){
             return 2;
         }
-        if(symbolName == 'yellowBunny'){
+        if(symbolName == 'greenBunny'){
             return 4;
         }
         if(symbolName == 'coin'){
