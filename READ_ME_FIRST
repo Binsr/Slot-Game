@@ -10,4 +10,4 @@ Data part sam preskocio jer nisam najbolje razumeo sta se trazi u tom delu (Poku
 1. Ukoliko je bilo ocekivano da se podaci o linijama i vrednosti dobitnih kombinacija ucitavaju iz posebnog fajla to bih uradio tako sto bih iz json fajla ucitao kombinacije u klasu LinesCretator i u funkciji setLogicPoints postavio na ucitane vrednosti umesto sto bi ih tu definisao.
 Sto se tice dobitnih vrednosti mogu se samo izmeniti konstante na pocetku index.js fajla na osnovu onog sto je ucitano is JSON-a.
 
-2. Ukoliko je bilo ocekivano da se podaci zapisu u JSON formatu to se moze lako uraditi u Calculations klasi kada se izracuna dobitak. Otale se mogu lako izvuci pozicije reelova kao i kombinacija simbola koja je dodeljena svakom reel-u.
+2. Ukoliko je bilo ocekivano da se podaci zapisu u JSON formatu to se moze lako uraditi u Calculations klasi kada se izracuna dobitak. Odatle se mogu lako izvuci pozicije reelova kao i kombinacija simbola koja je dodeljena svakom reel-u.
