@@ -10,7 +10,7 @@ export default class Reel{
                                                                     //|---------------------------------------------------------------------------------------------------|
         this.spinSpeed= 60;                                         //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
         this.oneSpinLen= reelParts[0].getHeight()/60;               //|                                                                                                   |
-        this.spinTime= Calculations.calcSpinTime(reelNumber);       //| spinSpeed < reelPartHeight  | oneSpinLen= reelPartHeight/2                                        |                          |
+        this.spinTime= Calculations.calcSpinTime(reelNumber);       //| spinSpeed < reelPartHeight  && oneSpinLen= reelPartHeight/2                                       |                          |
         this.spinCountdown= this.spinTime;                          //| Najkraci spin moze biti 4 u tom slucaju je spinSpeed == 120 (da izbgnemo bug kod swapa reel parta)|
                                                                     //|---------------------------------------------------------------------------------------------------|
         this.indexOfSwitcReelPart= 3;
@@ -49,7 +49,6 @@ export default class Reel{
         let indexOfallSymbols= [0,1,2,3];
         let indexOfLast= indexOfallSymbols.length-1;
 
-        // let allSymbolsArray= ["red","green","blue","white","yellow","pink"];
         let allSymbolsArray= this.symbols;
         let chosenComb=[];
 
@@ -91,7 +90,7 @@ export default class Reel{
         }
         if(this.spinCountdown == 0){
             this.spinCountdown= this.spinTime;
-            this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga        |
+            this.spinSpeed= 60;                //| spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  podesavanja se moraju drzati ovoga |
             this.oneSpinLen= 2;  
             this.spining= false;
             Music.reelStop();

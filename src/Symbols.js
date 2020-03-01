@@ -76,6 +76,13 @@ export default class Symbols{
         this.coinSymbol.coinUpdate();
     }
 
+    isBunny(){
+        if(this.id != 3)
+            return true;
+        else 
+            return false;
+    }
+
     calcId(symbolName){
         if(symbolName == 'redBunny'){
             return 1;

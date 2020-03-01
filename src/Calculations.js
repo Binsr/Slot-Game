@@ -26,6 +26,10 @@ export default class Calculations{
 
                 if(s1.getId() === s2.getId()){
                     if(s1.getId() === s3.getId()){
+                        if(s1.isBunny()){
+                            s1.bunnyAnimationStart();
+                            console.log("Start animation",s1);
+                        }
                         winLines.push(line);
                         oneLineWin= bet*s1.getValue();
                         if(s1.getId() === s4.getId()){

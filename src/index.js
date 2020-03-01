@@ -68,11 +68,17 @@ let oneRoundWin= 0;
 canvas.addEventListener('click', function(event) {
     if(spinBtn.clicked(event.clientX, event.clientY)){
         if(!spinBtn.isActive()){
-            symbols[0].stopBunnyAnimation();
+            for(let i= 0; i < symbols.length; i++){
+                if(symbols[i].isBunny()){
+                    symbols[i].stopBunnyAnimation();
+                }
+            } 
+            Music.backgroundMusic();
+            
             let wholeBet= betBtn.getBet() * linesBtn.getNumbOfActiveLines();
             if(creditBar.getCredit() > wholeBet)
                 Music.spin();
-            Music.backgroundMusic();
+
             if(creditBar.getCredit() < betBtn.getBet()*linesBtn.getNumbOfActiveLines()){
                 display.setColorOfMessage("red");
                 display.setMessage("No credit");
@@ -121,7 +127,6 @@ function update(){
         if(numbOfOffReels == NUMBER_OF_REELS){   
             spinBtn.switchActiveOn(false);
             numbOfOffReels= 0;
-            symbols[0].bunnyAnimationStart();
             if(oneRoundWin > 0){
                 display.setMessage("YOU WON: " + oneRoundWin);
                 display.setMessageTime(100);
@@ -133,10 +138,14 @@ function update(){
         }
     }else{
         display.updateLinesTimer();
+        for(let i= 0; i < symbols.length; i++){
+            if(symbols[i].isBunny()){
+                symbols[i].bunnyAnimationUpdate();
+            }
+        } 
     }
     linesBtn.updateCounter();
     display.updateDisplay();
-    symbols[0].bunnyAnimationUpdate();
     coinSimb.coinStartAnimation();
     coinSimb.coinUpdate();
 }
