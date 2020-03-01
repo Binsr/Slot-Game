@@ -1,9 +1,9 @@
 export default class CreditBar {
-    constructor(gameWidth, gameHeight){
+    constructor(gameWidth, gameHeight, startCredit){
         this.width= 100;
         this.height= 30;
         this.color= "red";
-        this.credit= 200;
+        this.credit= startCredit;
         this.gameWidth= gameWidth;
         this.gameHeight= gameHeight;
 

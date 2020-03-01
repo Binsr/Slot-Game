@@ -23,13 +23,14 @@ const BOT_MARGIN_HEIGHT= 200;
 const DISPLAY_WIDTH= 700,DISPLAY_HEIGHT= 40;
 const COIN_SYMBOL_VALUE= 10;
 const BUNNY_SYMBOL_VALUE= 5;
+const START_CREDIT= 450;
 
 let canvas= document.getElementById("gameScreen");
 let context= canvas.getContext("2d");
 
 let spinBtn= new SpinBtn(GAME_WIDTH, GAME_HEIGHT);
 let betBtn= new BetBtn(GAME_WIDTH, GAME_HEIGHT);
-let creditBar= new CreditBar(GAME_WIDTH, GAME_HEIGHT);
+let creditBar= new CreditBar(GAME_WIDTH, GAME_HEIGHT, START_CREDIT);
 let reelsBackground= new ReelsBackground(GAME_WIDTH, GAME_HEIGHT);
 let botMarg= new Margin(0, REEL_HEIGHT, GAME_WIDTH, BOT_MARGIN_HEIGHT);
 let topMarg= new Margin(0, 0, GAME_WIDTH, TOP_MARGIN_HEIGHT);
