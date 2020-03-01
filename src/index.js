@@ -21,7 +21,7 @@ const NUMBER_OF_LINES= 9;
 const TOP_MARGIN_HEIGHT= 120;
 const BOT_MARGIN_HEIGHT= 200;
 const DISPLAY_WIDTH= 700,DISPLAY_HEIGHT= 40;
-const COIN_SYMBOL_ID= 3,COIN_SYMBOL_VALUE= 10;
+const COIN_SYMBOL_VALUE= 10;
 const BUNNY_SYMBOL_VALUE= 5;
 
 let canvas= document.getElementById("gameScreen");
@@ -38,11 +38,11 @@ let display= new Display(GAME_WIDTH/2, REEL_HEIGHT + DISPLAY_HEIGHT/2+10, DISPLA
 let reelParts= [[],[],[],[],[]];
 
 let symbols= [];
-let coinSimb= new Symbols(COIN_SYMBOL_ID,COIN_SYMBOL_VALUE);
-symbols.push(new Symbols(1,BUNNY_SYMBOL_VALUE));
-symbols.push(new Symbols(2,BUNNY_SYMBOL_VALUE));
+let coinSimb= new Symbols("coin",COIN_SYMBOL_VALUE);
+symbols.push(new Symbols("redBunny",BUNNY_SYMBOL_VALUE));
+symbols.push(new Symbols("blueBunny",BUNNY_SYMBOL_VALUE));
 symbols.push(coinSimb);
-symbols.push(new Symbols(4,BUNNY_SYMBOL_VALUE));
+symbols.push(new Symbols("yellowBunny",BUNNY_SYMBOL_VALUE));
 
 for(let i= 0; i < NUMBER_OF_REELS; i++){
     for(let j= 0; j < NUMBER_OF_REEL_PARTS; j++){
