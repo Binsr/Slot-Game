@@ -1,5 +1,4 @@
 import Line from './Line.js';
-
 export default class LinesCreator{
 
     static createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT, SPACE_BETWEEN_REELS){
@@ -23,7 +22,7 @@ export default class LinesCreator{
         straithLines[0].switchActiveOn(true);
         straithLines[1].setLinesNumb(2);
         straithLines[0].setLinesNumb(1);
-
+        
 
         let vLines= [];
         vLines.push(new Line(LINES_RECT, 4));

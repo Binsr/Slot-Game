@@ -7,8 +7,8 @@ import ReelPart from './ReelPart.js';
 import Symbol from './Symbol.js';
 import Margin from './Margin.js';
 import LinesBtn from './LinesBtn.js';
-import LinesCreator from './LinesCreator.js'; // PREBACI DRAW ZA SVAKU KLASU SKROZ DOLE DA BUDE NA ISTOJ POZICIJI
-import Calculations from './Calculations.js'; //DA NE MOZE bet DOK SE SPINUJE DA SE MENJA
+import LinesCreator from './LinesCreator.js'; 
+import Calculations from './Calculations.js'; 
 import Display from './Display.js';
 import Music from './Music.js';
 
