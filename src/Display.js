@@ -1,6 +1,6 @@
 import Line from "./Line.js";
 export default class Display{
-    constructor(posX, posY, width, height){ //IZBACI MAGICNE BROJEVE IZ SETTIME ZA SPIN I OSTALE SLUCAJEVE
+    constructor(posX, posY, width, height){ 
         
         this.width= width;
         this.height= height;
