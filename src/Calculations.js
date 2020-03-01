@@ -8,13 +8,13 @@ export default class Calculations{
         return 82+5*reelNumber*8;
     }
 
-    static calcWin(symbolComb,bet,allLines,numbOfLines,display){
+    static calcWin(symbolComb, bet, allLines, numbOfLines, display){
         let win= 0;
         let winLines= [];
         for(let i= 1; i <= numbOfLines; i++){
             let line= LinesCreator.getLine(i,allLines);
             if(line.isLineActive()){
-                let logPos= LinesCreator.getLine(i,allLines).getLogicPoints();
+                let logPos= LinesCreator.getLine(i, allLines).getLogicPoints();
 
                 let s1= symbolComb[logPos[0].reel][logPos[0].reelPart];
                 let s2= symbolComb[logPos[1].reel][logPos[1].reelPart];

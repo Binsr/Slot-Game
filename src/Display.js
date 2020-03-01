@@ -75,6 +75,5 @@ export default class Display{
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.msg, this.position.x+this.width/2, this.position.y+this.height/2);
-        // con.strokeText("Canvas Rocks!", 5, 130);
     }
 }

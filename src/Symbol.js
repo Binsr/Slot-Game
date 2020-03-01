@@ -2,7 +2,7 @@ import BunnySymbol from './symbols/BunnySymbol.js';
 import CoinSymbol from './symbols/CoinSymbol.js';
 
 export default class Symbols{
-    constructor(symbolName,value){
+    constructor(symbolName, value){
         this.id= this.calcId(symbolName);
         this.value= value;  
         
@@ -19,23 +19,23 @@ export default class Symbols{
         return this.value;
     }
 
-    draw(context,width,height,posX,posY){
+    draw(context, width, height, posX, posY){
         if(this.id == 1){
             context.fillStyle= "red";
             context.fillRect(posX, posY, width, height);
-            this.drawBunny(context,width-10,height-16,posX+5,posY+8);
+            this.drawBunny(context, width-10, height-16, posX+5, posY+8);
         }else if(this.id == 2){
             context.fillStyle= "blue";
             context.fillRect(posX, posY, width, height);
-            this.drawBunny(context,width-10,height-16,posX+5,posY+8);
+            this.drawBunny(context, width-10, height-16, posX+5, posY+8);
         }else if(this.id == 3){
             context.fillStyle= "#F6F6F6";
             context.fillRect(posX, posY, width, height);
-            this.coinSymbol.draw(context,posX,posY);
+            this.coinSymbol.draw(context, posX, posY);
         }else if(this.id == 4){
             context.fillStyle= "green";
             context.fillRect(posX, posY, width, height);
-            this.drawBunny(context,width-10,height-16,posX+5,posY+8);
+            this.drawBunny(context, width-10, height-16, posX+5, posY+8);
         }
     }
 
@@ -51,8 +51,8 @@ export default class Symbols{
         this.bunnySymbol.bunnyAnimationUpdate();
     }
 
-    drawBunny(context,width,height,posX,posY){
-        this.bunnySymbol.drawBunny(context,width,height,posX,posY);
+    drawBunny(context, width, height, posX, posY){
+        this.bunnySymbol.drawBunny(context, width, height, posX, posY);
     }
 
     coinStartAnimation(){

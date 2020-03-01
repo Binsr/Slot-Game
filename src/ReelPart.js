@@ -1,6 +1,6 @@
 import Symbols from "./Symbol.js";
 export default class ReelPart{
-    constructor(width, height,symbol){
+    constructor(width, height, symbol){
         this.width= width;
         this.height= Math.round(height/4);
         this.collor= "red";

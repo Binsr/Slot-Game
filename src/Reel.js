@@ -2,7 +2,7 @@ import ReelParts from './ReelPart.js';
 import Calculations from './Calculations.js';
 import Music from './Music.js';
 export default class Reel{
-    constructor(posX, posY, width, height, reelNumber, reelParts,symbols){ //PROSLEDI MU I SIMBOLE*** SYMBOL TREBA DA IMA VALUE
+    constructor(posX, posY, width, height, reelNumber, reelParts, symbols){ //PROSLEDI MU I SIMBOLE*** SYMBOL TREBA DA IMA VALUE
         this.symbols= symbols;
         this.width= width;
         this.height= height;

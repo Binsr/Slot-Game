@@ -50,6 +50,6 @@ export default class BetBtn{
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.bet.toString(), this.position.x+this.width/3, this.position.y+this.height/2);
-        context.fillText("Bet per line",this.position.x+this.width/3,this.position.y-6);
+        context.fillText("Bet per line", this.position.x+this.width/3, this.position.y-6);
     }
 }

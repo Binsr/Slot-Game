@@ -1,7 +1,7 @@
 
 export default class LinesBtn{
 
-    constructor(gameWidth,gameHeight,lines,numbOfLines){
+    constructor(gameWidth, gameHeight, lines, numbOfLines){
         this.width= 100;
         this.height= 30;   
         this.color= "White";
@@ -20,14 +20,10 @@ export default class LinesBtn{
             x: gameWidth - this.width-200,
             y: gameHeight - this.height,
         };
-        // lines[0][1].setShowLine(true);
-        // lines[0][1].setLineOn(true);
     }
     draw(context){
-        // context.fillStyle= this.color;
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        context.moveTo(this.position.x,this.position.y);
-        context.lineTo(this.position.x+this.width,this.position.y);
+        context.moveTo(this.position.x, this.position.y);
+        context.lineTo(this.position.x+this.width, this.position.y);
         context.stroke();
         context.fillStyle= "black";
         context.fillRect(this.position.x-this.width/3, this.position.y, this.width/3, this.height);

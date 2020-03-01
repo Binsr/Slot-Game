@@ -27,17 +27,17 @@ export default class CreditBar {
 
     draw(context){
         context.fillStyle= this.color;
-        context.moveTo(this.position.x,this.position.y);
-        context.lineTo(this.position.x+this.gameWidth-100,this.position.y);
-        context.moveTo(this.position.x,this.position.y);
-        context.lineTo(this.position.x,this.gameWidth);
-        context.stroke();
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.moveTo(this.position.x, this.position.y);
+        context.lineTo(this.position.x+this.gameWidth-100, this.position.y);
+        context.moveTo(this.position.x, this.position.y);
+        context.lineTo(this.position.x, this.gameWidth);
+        context.stroke(); 
+
         context.fillStyle= "black";
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.credit.toString(), this.position.x+this.width/2, this.position.y+this.height/2);
-        context.fillText("Credit",this.position.x+this.width/2,this.position.y-6);
+        context.fillText("Credit", this.position.x+this.width/2, this.position.y-6);
         context.moveTo(this.position.x, this.position.y);
         context.lineTo(this.position.x, this.position.y-15);
         context.lineTo(this.position.x+this.width-1, this.position.y-15);

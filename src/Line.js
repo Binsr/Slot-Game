@@ -1,6 +1,6 @@
 export default class Line{
 
-    constructor(linesRect,lineNumber){ //SHOWLINE MALO ISPITAJ
+    constructor(linesRect, lineNumber){ 
         this.drawPoints= [];
         this.logicPoints= [];
         this.isLineOn= false;
@@ -54,9 +54,9 @@ export default class Line{
         context.beginPath();
         context.strokeStyle= "#c0cd00";
         context.lineWidth= 5;
-        context.moveTo(this.drawPoints[0][0]-5,this.drawPoints[0][1]);
+        context.moveTo(this.drawPoints[0][0]-5, this.drawPoints[0][1]);
         for(let i= 1; i < this.drawPoints.length; i++){
-            context.lineTo(this.drawPoints[i][0], this.drawPoints[i][1]);//OVO MOZE DA BUDE NIZ STRURUKTURE TO JEST OBJEKTA U JS U points[i].x
+            context.lineTo(this.drawPoints[i][0], this.drawPoints[i][1]);
         }
         context.stroke();
         context.fillStyle= "#c0cd00";
