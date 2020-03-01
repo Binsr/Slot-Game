@@ -40,11 +40,16 @@ export default class BetBtn{
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
         context.fillStyle= "black";
         context.fillRect(this.position.x-this.width/3, this.position.y, this.width/3, this.height);
+        context.moveTo(this.position.x-this.width/3+1, this.position.y);
+        context.lineTo(this.position.x-this.width/3+1, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.position.y);
         context.fillStyle= "black";
         context.fillRect(this.position.x+this.width*2/3, this.position.y, this.width/3, this.height);
         context.fillStyle= "black";
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.bet.toString(), this.position.x+this.width/3, this.position.y+this.height/2);
+        context.fillText("Bet per line",this.position.x+this.width/3,this.position.y-6);
     }
 }

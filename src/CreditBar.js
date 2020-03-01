@@ -5,6 +5,7 @@ export default class CreditBar {
         this.color= "red";
         this.credit= 200;
         this.gameWidth= gameWidth;
+        this.gameHeight= gameHeight;
 
         this.position= {
             x: this.width/2,
@@ -36,6 +37,11 @@ export default class CreditBar {
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.credit.toString(), this.position.x+this.width/2, this.position.y+this.height/2);
+        context.fillText("Credit",this.position.x+this.width/2,this.position.y-6);
+        context.moveTo(this.position.x, this.position.y);
+        context.lineTo(this.position.x, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.gameHeight);
     }
 
 }

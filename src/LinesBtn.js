@@ -37,6 +37,12 @@ export default class LinesBtn{
         context.textAlign="center"; 
         context.textBaseline = "middle";
         context.fillText(this.linesActive.toString(), this.position.x+this.width/3, this.position.y+this.height/2);
+        context.fillText("Lines",this.position.x+this.width/3,this.position.y-6);
+        context.moveTo(this.position.x-this.width/3+1, this.position.y);
+        context.lineTo(this.position.x-this.width/3+1, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.position.y-15);
+        context.lineTo(this.position.x+this.width-1, this.position.y);
+        context.stroke();
     }
     clicked(mouseX,mouseY){
         var d1= Math.sqrt(Math.pow(mouseX-70-this.position.x-this.width/3, 2) + Math.pow(mouseY-30-this.position.y, 2));//Udaljenost dve tacke
