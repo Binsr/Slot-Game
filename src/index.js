@@ -100,8 +100,8 @@ canvas.addEventListener('click', function(event) {
                 oneRoundSimbolCombination= [];
             }
         }
-    }else if(betBtn.clicked(event.clientX, event.clientY)){
-
+    }else if(!spinBtn.isActive())
+       if(betBtn.clicked(event.clientX, event.clientY)){
     }else if(!spinBtn.isActive()){
         if(linesBtn.clicked(event.clientX,event.clientY)){
             linesBtn.refreshCounter();
