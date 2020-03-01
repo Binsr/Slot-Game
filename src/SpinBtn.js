@@ -15,6 +15,8 @@ export default class SpinBtn {
         context.fillStyle= this.color;
         context.beginPath()
         context.arc(this.position.x, this.position.y, 2*this.r, 0, Math.PI*2, false);
+        context.fillStyle= "black";
+        context.fill();
         context.moveTo(this.position.x, this.position.y-this.r*2);
         context.lineTo(this.position.x, this.position.y+this.r*2);
 

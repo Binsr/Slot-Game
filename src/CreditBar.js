@@ -28,7 +28,7 @@ export default class CreditBar {
     draw(context){
         context.fillStyle= this.color;
         context.moveTo(this.position.x, this.position.y);
-        context.lineTo(this.position.x+this.gameWidth-100, this.position.y);
+        context.lineTo(this.position.x+this.width, this.position.y);
         context.moveTo(this.position.x, this.position.y);
         context.lineTo(this.position.x, this.gameWidth);
         context.stroke(); 
