@@ -136,6 +136,11 @@ function update(){
             creditBar.increseCredit(oneRoundWin);
             if(oneRoundWin > 0)
                 Music.win();
+            if(creditBar.getCredit() == 0){
+                display.setColorOfMessage("red");
+                display.setMessageTime(200);
+                display.setMessage("GAME OVER");
+            }
         }
     }else{
         display.updateLinesTimer();
