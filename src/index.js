@@ -121,7 +121,7 @@ function update(){
     if(spinBtn.isActive()){
         for(let i= 0; i < NUMBER_OF_REELS; i++){
             if(reels[i].isSpining()){
-                reels[i].Spin();
+                reels[i].spin();
                 reels[i].updateSpinCountdown();
             }
         }

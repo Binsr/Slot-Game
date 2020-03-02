@@ -65,7 +65,7 @@ export default class Reel{
         return chosenComb;
     }
 
-    Spin(){
+    spin(){
         for(let i= 0; i < this.reelParts.length; i++){
             this.reelParts[i].updatePosY(this.spinSpeed);
         }
