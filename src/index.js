@@ -65,7 +65,7 @@ let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let lines= new Lines(allLines);
 
-let graphicDisplayArray= [reelsBackground, reelsH, botMarg, topMarg, spinBtn, betBtn, creditBar, linesBtn, display, lines];
+let drawArray= [reelsBackground, reelsH, botMarg, topMarg, spinBtn, betBtn, creditBar, linesBtn, display, lines];
 
 let oneRoundSimbolCombination= [];
 let oneRoundWin= 0;
@@ -105,10 +105,10 @@ canvas.addEventListener('click', function(event) {
                 oneRoundSimbolCombination= [];
             }
         }
-    }else if(!spinBtn.isActive())
-       if(betBtn.clicked(event.clientX, event.clientY)){
     }else if(!spinBtn.isActive()){
-        if(linesBtn.clicked(event.clientX,event.clientY)){
+        if(betBtn.clicked(event.clientX, event.clientY))
+            Music.backgroundMusic();
+        else if(linesBtn.clicked(event.clientX,event.clientY)){
             lines.refreshCounter();
             Music.lines();
             Music.backgroundMusic();
@@ -163,8 +163,8 @@ function update(){
 
 function draw(){
     context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT); 
-    for(let i= 0; i < graphicDisplayArray.length; i++){
-        graphicDisplayArray[i].draw(context);
+    for(let i= 0; i < drawArray.length; i++){
+        drawArray[i].draw(context);
     }
 }
 
