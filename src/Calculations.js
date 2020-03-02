@@ -1,6 +1,6 @@
 import LinesCreator from './LinesCreator.js';
 import Line from './Line.js';
-import Display from './Display.js';
+import Lines from './Lines.js';
 export default class Calculations{
 
     //spinTime%((reelPartHeight/spinSpeed)*brReelParts) == 0  
@@ -8,7 +8,7 @@ export default class Calculations{
         return 82+5*reelNumber*8;
     }
 
-    static calcWin(symbolComb, bet, allLines, numbOfLines, display){
+    static calcWin(symbolComb, bet, allLines, numbOfLines, lines){
         let win= 0;
         let winLines= [];
         for(let i= 1; i <= numbOfLines; i++){
@@ -45,8 +45,8 @@ export default class Calculations{
             }
         }
         if(winLines.length != 0){
-            display.setWinLines(winLines);
-            display.setLinesTimer(100);
+            lines.setWinLines(winLines);
+            lines.setWinLinesTimer(100);
         }
         return win;
     }

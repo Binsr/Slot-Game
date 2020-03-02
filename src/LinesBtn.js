@@ -5,11 +5,8 @@ export default class LinesBtn{
         this.height= 30;   
         this.color= "White";
         this.lines= lines;
-        this.timeForC= 90;
-        this.counter= this.timeForC;
-        this.showLines= true;
-        this.numbOfLines= numbOfLines;
 
+        this.numbOfLines = numbOfLines;
         this.iteratorX= 0;
         this.iteratorY= 1;
         this.linesActive= 1;
@@ -80,28 +77,9 @@ export default class LinesBtn{
         }
     }
     
-    refreshCounter(){
-        this.counter= this.timeForC;
-        this.showLines= true;
-    }
-
-    updateCounter(){
-        if(this.counter == 0){
-            this.showLines= false;
-            return;
-        }
-        this.counter--;
-    }
-
-    setCounter(time){
-        this.counter= time;
-        this.showLines= false;
-    }
     getNumbOfActiveLines(){
         return this.linesActive;
     }
 
-    getShowStatus(){
-        return this.showLines;
-    }
+
 }

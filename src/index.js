@@ -4,6 +4,7 @@ import CreditBar from './CreditBar.js';
 import ReelsBackground from './ReelsBackground.js';
 import Reel from './Reel.js';
 import ReelPart from './ReelPart.js';
+import Reels from './Reels.js';
 import Symbol from './Symbol.js';
 import Margin from './Margin.js';
 import LinesBtn from './LinesBtn.js';
@@ -11,6 +12,7 @@ import LinesCreator from './LinesCreator.js';
 import Calculations from './Calculations.js'; 
 import Display from './Display.js';
 import Music from './Music.js';
+import Lines from './Lines.js';
 
 const GAME_WIDTH= 800,GAME_HEIGHT= 600;
 const REEL_WIDTH= 110,REEL_HEIGHT= 480;
@@ -39,9 +41,9 @@ let display= new Display(GAME_WIDTH/2, REEL_HEIGHT + DISPLAY_HEIGHT/2+10, DISPLA
 let reelParts= [[],[],[],[],[]];
 
 let symbols= [];
-let coinSimb= new Symbol("coin", COIN_SYMBOL_VALUE);
 symbols.push(new Symbol("redBunny", BUNNY_SYMBOL_VALUE));
 symbols.push(new Symbol("blueBunny", BUNNY_SYMBOL_VALUE));
+let coinSimb= new Symbol("coin", COIN_SYMBOL_VALUE);
 symbols.push(coinSimb);
 symbols.push(new Symbol("greenBunny", BUNNY_SYMBOL_VALUE));
 
@@ -51,7 +53,6 @@ for(let i= 0; i < NUMBER_OF_REELS; i++){
     }
 }
 
-
 let reels= [];
 let reelPositionsX= LEFT_EDGE;
 
@@ -59,9 +60,13 @@ for(let i= 0; i < NUMBER_OF_REELS; i++){
     reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, i, reelParts[i],symbols));
     reelPositionsX+= REEL_WIDTH+SPACE_BETWEEN_REELS;
 }
+let reelS = new Reels(reels);
+
 let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT,SPACE_BETWEEN_REELS);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
-let graphicDisplayArray= [reelsBackground, botMarg, topMarg, spinBtn, betBtn, creditBar,linesBtn,display];
+let lines= new Lines(allLines);
+
+let graphicDisplayArray= [reelsBackground, reelS, botMarg, topMarg, spinBtn, betBtn, creditBar, linesBtn, display, lines];
 
 let oneRoundSimbolCombination= [];
 let oneRoundWin= 0;
@@ -74,6 +79,7 @@ canvas.addEventListener('click', function(event) {
                     symbols[i].stopBunnyAnimation();
                 }
             } 
+            lines.setSpinActive(true);
             Music.backgroundMusic();
 
             let wholeBet= betBtn.getBet() * linesBtn.getNumbOfActiveLines();
@@ -86,18 +92,17 @@ canvas.addEventListener('click', function(event) {
                 display.setMessageTime(100);
                 Music.noCredit();
             }else{
-                display.turnOfLinesShow();
+                lines.turnOfWinLinesShow();
                 display.setColorOfMessage("green");
                 display.setMessage("Spinning!");
                 display.setMessageTime(200);
+                
                 creditBar.updateCredit(betBtn.getBet()*linesBtn.getNumbOfActiveLines());
-                linesBtn.setCounter(0);
+                lines.setCounter(0);
                 spinBtn.switchActiveOn(true);
-                for(let i= 0; i < NUMBER_OF_REELS; i++){
-                    oneRoundSimbolCombination.push(reels[i].shufle());
-                    reels[i].startSpining();
-                }
-                oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(), allLines, NUMBER_OF_LINES,display);
+
+                oneRoundSimbolCombination= reelS.oneRoundSymbolComb();
+                oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(), allLines, NUMBER_OF_LINES, lines);
                 oneRoundSimbolCombination= [];
             }
         }
@@ -105,7 +110,7 @@ canvas.addEventListener('click', function(event) {
        if(betBtn.clicked(event.clientX, event.clientY)){
     }else if(!spinBtn.isActive()){
         if(linesBtn.clicked(event.clientX,event.clientY)){
-            linesBtn.refreshCounter();
+            lines.refreshCounter();
             Music.lines();
             Music.backgroundMusic();
         }
@@ -117,7 +122,7 @@ function update(){
     if(spinBtn.isActive()){
         for(let i= 0; i < NUMBER_OF_REELS; i++){
             if(reels[i].isSpining()){
-                reels[i].endingSpin();
+                reels[i].Spin();
                 reels[i].updateSpinCountdown();
             }
         }
@@ -127,6 +132,7 @@ function update(){
         }
         if(numbOfOffReels == NUMBER_OF_REELS){   
             spinBtn.switchActiveOn(false);
+            lines.setSpinActive(false);
             numbOfOffReels= 0;
             if(oneRoundWin > 0){
                 display.setMessage("YOU WON: " + oneRoundWin);
@@ -143,42 +149,24 @@ function update(){
             }
         }
     }else{
-        display.updateLinesTimer();
+        lines.updateWinLinesTimer();
         for(let i= 0; i < symbols.length; i++){
             if(symbols[i].isBunny()){
                 symbols[i].bunnyAnimationUpdate();
             }
         } 
     }
-    linesBtn.updateCounter();
+    lines.updateCounter();
     display.updateDisplay();
     coinSimb.coinStartAnimation();
     coinSimb.coinUpdate();
 }
 
-function drawLines(){
-    for(let i= 0; i < allLines.length; i++)
-        for(let j= 0; j < allLines[i].length; j++){
-            if(linesBtn.getShowStatus()){
-                allLines[i][j].draw(context);
-            }else{
-                allLines[i][j].drawLineSign(context);
-            }
-    }
-    if(!spinBtn.isActive())
-        display.drawWinLines(context);
-}
 function draw(){
     context.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT); 
     for(let i= 0; i < graphicDisplayArray.length; i++){
-        graphicDisplayArray[i].draw(context);//
-        if(i == 0){
-            for(let j= 0; j < NUMBER_OF_REELS; j++){
-                reels[j].draw(context);
-            }
-        }
+        graphicDisplayArray[i].draw(context);
     }
-    drawLines();
 }
 
 let lastTime= 0;

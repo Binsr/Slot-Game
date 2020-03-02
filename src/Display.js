@@ -15,9 +15,6 @@ export default class Display{
             y: posY - this.height/2
         };
 
-        this.winLines= [];
-        this.linesTimer= 0;
-
     }
 
     setMessage(msg){
@@ -37,35 +34,7 @@ export default class Display{
         }
         this.counter--;
     }
-    setWinLines(lines){
-        this.winLines= lines;
-    }
 
-    setLinesTimer(time){
-        this.linesTimer= time;
-        for(let i= 0; i < this.winLines.length; i++){
-            this.winLines[i].linesOnShowSwitch(true);
-        }
-        console.log(this.winLines);
-    }
-    turnOfLinesShow(){
-        this.winLines= [];
-    }
-
-    updateLinesTimer(){
-        if(this.linesTimer == 0){
-            for(let i= 0; i < this.winLines; i++){
-                this.winLines[i].linesOnShowSwitch(false);
-            }
-            this.winLines= [];
-        }
-        this.linesTimer--;
-    }
-    
-    drawWinLines(context){
-        for(let i= 0; i < this.winLines.length; i++)
-            this.winLines[i].draw(context);
-    }
 
     draw(context){
         context.fillStyle= "black";
