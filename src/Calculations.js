@@ -40,7 +40,6 @@ export default class Calculations{
 
                     }
                 }
-                console.log(oneLineWin);
                 win+= oneLineWin;
             }
         }
