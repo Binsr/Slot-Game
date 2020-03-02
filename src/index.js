@@ -39,7 +39,6 @@ let topMarg= new Margin(0, 0, GAME_WIDTH, TOP_MARGIN_HEIGHT);
 let display= new Display(GAME_WIDTH/2, REEL_HEIGHT + DISPLAY_HEIGHT/2+10, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 let reelParts= [[],[],[],[],[]];
-
 let symbols= [];
 symbols.push(new Symbol("redBunny", BUNNY_SYMBOL_VALUE));
 symbols.push(new Symbol("blueBunny", BUNNY_SYMBOL_VALUE));
