@@ -59,13 +59,13 @@ for(let i= 0; i < NUMBER_OF_REELS; i++){
     reels.push(new Reel(reelPositionsX, 0, REEL_WIDTH, REEL_HEIGHT, i, reelParts[i],symbols));
     reelPositionsX+= REEL_WIDTH+SPACE_BETWEEN_REELS;
 }
-let reelS = new Reels(reels);
+let reelsH = new Reels(reels);
 
 let allLines= LinesCreator.createLines(REEL_WIDTH, REEL_HEIGHT, LEFT_EDGE, RIGHT_EDGE, LINES_RECT,SPACE_BETWEEN_REELS);
 let linesBtn= new LinesBtn(GAME_WIDTH,GAME_HEIGHT,allLines,NUMBER_OF_LINES);
 let lines= new Lines(allLines);
 
-let graphicDisplayArray= [reelsBackground, reelS, botMarg, topMarg, spinBtn, betBtn, creditBar, linesBtn, display, lines];
+let graphicDisplayArray= [reelsBackground, reelsH, botMarg, topMarg, spinBtn, betBtn, creditBar, linesBtn, display, lines];
 
 let oneRoundSimbolCombination= [];
 let oneRoundWin= 0;
@@ -100,7 +100,7 @@ canvas.addEventListener('click', function(event) {
                 lines.setCounter(0);
                 spinBtn.switchActiveOn(true);
 
-                oneRoundSimbolCombination= reelS.oneRoundSymbolComb();
+                oneRoundSimbolCombination= reelsH.oneRoundSymbolComb();
                 oneRoundWin= Calculations.calcWin(oneRoundSimbolCombination,betBtn.getBet(), allLines, NUMBER_OF_LINES, lines);
                 oneRoundSimbolCombination= [];
             }
