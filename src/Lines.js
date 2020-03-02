@@ -2,11 +2,13 @@ import Line from './Line.js';
 export default class Lines{
     constructor(lines){
         this.lines= lines;
+        this.winLines= [];
+
         this.timeForC= 90;
         this.counter= this.timeForC;
         this.showLines= true;
-        this.winLines= [];
         this.isSpinActive= false;
+        this.winLinesTimer= null;
     }
 
     refreshCounter(){
@@ -37,7 +39,7 @@ export default class Lines{
     }
 
     setWinLinesTimer(time){
-        this.linesTimer= time;
+        this.winLinesTimer= time;
         for(let i= 0; i < this.winLines.length; i++){
             this.winLines[i].linesOnShowSwitch(true);
         }
@@ -48,13 +50,13 @@ export default class Lines{
     }
 
     updateWinLinesTimer(){
-        if(this.linesTimer == 0){
+        if(this.winLinesTimer == 0){
             for(let i= 0; i < this.winLines; i++){
                 this.winLines[i].linesOnShowSwitch(false);
             }
             this.winLines= [];
         }
-        this.linesTimer--;
+        this.winLinesTimer--;
     }
     setSpinActive(b){
         this.isSpinActive= b;
