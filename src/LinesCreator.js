@@ -105,7 +105,7 @@ export default class LinesCreator{
                                     {reel: 2, reelPart: 2},
                                     {reel: 3, reelPart: 3},
                                     {reel: 4, reelPart: 3}
-]);
+        ]);
 
         this.allLines.push(straithLines);
         this.allLines.push(vLines);
@@ -118,9 +118,8 @@ export default class LinesCreator{
 
         if(index == 2)
             return lines[0][1];
-        if(index == 1){
+        if(index == 1)
             return lines[0][0];
-        }
 
         while(i < index-1){
             if(x == lines.length)
@@ -128,10 +127,9 @@ export default class LinesCreator{
             if(y == lines[x].length-1){
                 x++;
                 y= 0;
-            }else{
+            }else
                 y++;
-            }
-
+                
             i++;
         }
         return lines[x][y];
