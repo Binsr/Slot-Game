@@ -21,12 +21,15 @@ export default class Display{
         this.msg= msg;
         this.counter= this.countTime;
     }
+    
     setColorOfMessage(collor){
         this.msgCollor= collor;
     }
+
     setMessageTime(time){
         this.countTime= time;
     }
+
     updateDisplay(){
         if(this.counter == 0){
             this.msg= "";
@@ -34,7 +37,6 @@ export default class Display{
         }
         this.counter--;
     }
-
 
     draw(context){
         context.fillStyle= "black";
