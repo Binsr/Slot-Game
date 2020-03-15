@@ -3,11 +3,5 @@ index.html je potrebno pokrenuti u mozili ali pre toga je potrebno uraditi slede
 Open Firefox and type about:config into the URL bar. search for: security.fileuri.strict_origin_policy set to false
 Then open index.html in Firefox
 
-*Za Chrome pretrazivac nisam uspeo da nadjem resenje za ovaj problem.
 
-Data part sam preskocio jer nisam najbolje razumeo sta se trazi u tom delu (Pokusao sam da dobijem detalje mail-om o tom delu, ali nisam dobio odgovor pa sam ostavio objasnjenje ispod sta bih uradio ako je trebalo da protumacim taj deo na sledece nacine).
 
-1. Ukoliko je bilo ocekivano da se podaci o linijama i vrednosti dobitnih kombinacija ucitavaju iz posebnog fajla to bih uradio tako sto bih iz json fajla ucitao kombinacije u klasu LinesCretator i u funkciji setLogicPoints postavio na ucitane vrednosti umesto sto bi ih tu definisao.
-Sto se tice dobitnih vrednosti mogu se samo izmeniti konstante na pocetku index.js fajla na osnovu onog sto je ucitano is JSON-a.
-
-2. Ukoliko je bilo ocekivano da se podaci zapisu u JSON formatu to se moze lako uraditi u Calculations klasi kada se izracuna dobitak. Odatle se mogu lako izvuci pozicije reelova kao i kombinacija simbola koja je dodeljena svakom reel-u.
